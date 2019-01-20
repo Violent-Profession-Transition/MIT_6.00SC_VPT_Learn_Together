@@ -50,3 +50,28 @@ are classifications of objects. In Python, everything is an object, **even the P
 **Straight line program vs Branching program**
 
 Straight line program goes through the program line-by-line and carries out each step. Branching program can run different sections depending on the conditions.
+
+## Jan 16th 2019 Meetup @ NUS-ALSET
+
+### Lecture 3 Notes:
+
+- iteration to build programs whose execution time depends upon the size of inputs.
+- search problems with brute force and bisection
+- brute force and exhaustive enumeration
+- approximation = find a `y` such that `y*y = x +- epsilon`, if finding exact x is too time-consuming to find
+
+### Lecture 4 Notes:
+
+- finding square root of numbers between 0 and 1 is tricky, since the square root will be larger than the number, eg 0.25's squart root is 0.5
+- the most important thing to learn to **how to debug a program**
+```python
+# for number between 0 and 1
+# sqrt_root will be larger than input_Number
+# so guess**2 will never be greater than the top_margin
+# so need to increase the search region to 1
+if input_Number < 1:
+    upper_bound = 1 + err_margin
+        lower_bound = bottom_margin
+```
+- scope
+- Formal parameters are the names of variables used inside a procedure; actual parameters (or arguments) are the values assigned to those names.
