@@ -75,3 +75,22 @@ if input_Number < 1:
 ```
 - scope
 - Formal parameters are the names of variables used inside a procedure; actual parameters (or arguments) are the values assigned to those names.
+
+## Jan 26th 2019 Meetup @ NUS-SOC MR4
+
+### Lecture 5 Notes:
+
+```python
+x = 100
+divisors = ()
+for number in range(1,x):
+    if x % number == 0:
+        divisors = divisors + (number,)
+
+print(divisors)
+# (1, 2, 4, 5, 10, 20, 25, 50)
+```
+- mutability: A mutable object's values can be changed; we must be careful when working with mutable objects not to inadvertently change them.
+- Tuples are immutable (as are strings). List and Dict are mutable.
+- A dictionary is mutable, with immutable keys, and unordered.
+
