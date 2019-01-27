@@ -134,3 +134,4 @@ In [7]: def close_enough(x, y, epsilon=0.00001):
 In [8]: close_enough(x, 10000)
 Out[8]: True
 ```
+- **Bisection search for debugging**: you can try to use binary search to locate where the bug is in your program:D
