@@ -71,7 +71,7 @@ Straight line program goes through the program line-by-line and carries out each
 # so need to increase the search region to 1
 if input_Number < 1:
     upper_bound = 1 + err_margin
-        lower_bound = bottom_margin
+    lower_bound = bottom_margin
 ```
 - scope
 - Formal parameters are the names of variables used inside a procedure; actual parameters (or arguments) are the values assigned to those names.
