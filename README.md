@@ -7,7 +7,7 @@ as taiught in 2011 MIT 6.00SC Introduction to Computer Science and Programming
 
 ## Jan 12th 2019 Meetup @ NUS-ALSET
 
-### Lecture 1 Notes:
+### Lecture 1 (Stored Program & Flow of control & Semantics) Notes:
 
 **Declarative vs Imperative**
 - Declarative is statements of facts :cop: :scroll:
@@ -41,7 +41,7 @@ Compiled programs convert source code to **object code** then feed it to interpr
 2. run forever
 3. give the wrong answer
 
-### Lecture 2 Notes:
+### Lecture 2 (Operators & Variables) Notes:
 
 **Types**
 
@@ -53,14 +53,14 @@ Straight line program goes through the program line-by-line and carries out each
 
 ## Jan 16th 2019 Meetup @ NUS-ALSET
 
-### Lecture 3 Notes:
+### Lecture 3 (Exhaustive Enumeration & Bisection Search) Notes:
 
 - iteration to build programs whose execution time depends upon the size of inputs.
 - search problems with brute force and bisection
 - brute force and exhaustive enumeration
 - approximation = find a `y` such that `y*y = x +- epsilon`, if finding exact x is too time-consuming to find
 
-### Lecture 4 Notes:
+### Lecture 4 (Function & Scope) Notes:
 
 - finding square root of numbers between 0 and 1 is tricky, since the square root will be larger than the number, eg 0.25's squart root is 0.5
 - the most important thing to learn to **how to debug a program**
@@ -78,7 +78,7 @@ if input_Number < 1:
 
 ## Jan 26th 2019 Meetup @ NUS-SOC MR4
 
-### Lecture 5 Notes:
+### Lecture 5 (Tuple,List,Dict & Aliasing & Mutability) Notes:
 
 ```python
 x = 100
@@ -94,3 +94,43 @@ print(divisors)
 - Tuples are immutable (as are strings). List and Dict are mutable.
 - A dictionary is mutable, with immutable keys, and unordered.
 
+### Lecture 6 (Recursion & Divide and Conquer) Notes:
+
+Python2's `import string` and `string.lowercase` will strip white space and non-alphabet characters.
+```python
+>>> import string
+>>> string.lowercase
+'abcdefghijklmnopqrstuvwxyz'
+```
+
+- Base case: A base case is necessary in recursion; it determines when the procedure returns a value (or terminates), rather than continuing the recursive process.
+- Recursive case: A recursive case calls the recursive procedure on a simpler version of the problem.
+
+
+### Lecture 7 (Binary & Floating Point & Debugger) Notes:
+
+**`repr`** can be used to show the detailed representation of the floating point before Python 2.7. Now use **`format()`**:
+```python
+format(0.1, ".25f")
+'0.1000000000000000055511151'
+```
+
+- Do not test for `==` equality with floats.
+- Computers use binary, floats are actually very close approximations of the actual values. Testing for equality can result in an unexpected error, so **it's better to determine whether two numbers are close enough for our purposes** rather than precisely equal.
+```python
+In [1]: x = 0.0
+
+In [2]: numIters = 100000
+
+In [3]: for i in range(numIters):
+   ...:     x += 0.1    
+
+In [4]: print(x)
+10000.000000018848
+
+In [7]: def close_enough(x, y, epsilon=0.00001):
+   ...:     return abs(x-y)<epsilon # True/False
+
+In [8]: close_enough(x, 10000)
+Out[8]: True
+```
