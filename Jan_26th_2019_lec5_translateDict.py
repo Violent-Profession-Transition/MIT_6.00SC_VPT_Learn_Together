@@ -16,10 +16,12 @@ def translate_word(word, dictionary):
 
 def translate_sentence(sentence):
     translation = ""
-    for word in sentence.split(' '):
+    sentence_words = sentence.split(' ')
+    for word in sentence_words:
         result = translate_word(word, English_to_Frensh_Dict)
         translation = translation + result + ' '
-    return translation
+    # remove the last white space at the end
+    return translation.strip()
 
 print(translate_word("drinks", English_to_Frensh_Dict))
 print(translate_sentence("John drinks wine"))
