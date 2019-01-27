@@ -103,6 +103,9 @@ Python2's `import string` and `string.lowercase` will strip white space and non-
 'abcdefghijklmnopqrstuvwxyz'
 ```
 
+- Base case: A base case is necessary in recursion; it determines when the procedure returns a value (or terminates), rather than continuing the recursive process.
+- Recursive case: A recursive case calls the recursive procedure on a simpler version of the problem.
+
 
 ### Lecture 7 (Binary & Floating Point & Debugger) Notes:
 
@@ -112,4 +115,22 @@ format(0.1, ".25f")
 '0.1000000000000000055511151'
 ```
 
+- Do not test for `==` equality with floats.
+- Computers use binary, floats are actually very close approximations of the actual values. Testing for equality can result in an unexpected error, so **it's better to determine whether two numbers are close enough for our purposes** rather than precisely equal.
+```python
+In [1]: x = 0.0
 
+In [2]: numIters = 100000
+
+In [3]: for i in range(numIters):
+   ...:     x += 0.1    
+
+In [4]: print(x)
+10000.000000018848
+
+In [7]: def close_enough(x, y, epsilon=0.00001):
+   ...:     return abs(x-y)<epsilon # True/False
+
+In [8]: close_enough(x, 10000)
+Out[8]: True
+```
