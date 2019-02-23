@@ -179,3 +179,13 @@ Out[8]: True
 - **PEOPLE JUST WRITE O(N) AND THINK THEY ARE DONE. THEY ARE NOT!!! YOU MUST ALWAYS KNOW WHAT N MEANS!!!**, especially when your function has multiple inputs
 - Have to very careful when looking at complexity, not to think you only have to look at the complexity of the program itself, like the number of recursive calls, but also **IS THERE SOMETHING THAT IS DOING INSIDE THIS FUNCTION THAT MIGHT BE MORE COMPLEX THAN YOU THINK?**
 
+### Lecture 9 (Indirection and Linked List, Selection and Merge Sort) Notes:
+
+- **Indirection**: Indirection is the ability to access something using a name or reference instead of the value itself.
+- Python's list is not LINKED LIST, it is a list of locations of the objects in memory, each object is a pointer
+- In constant time, you can access any object in a list, even though the objects in the list are of varying size
+- Binary search only works when the list is already **sorted**
+- **AMORTIZED COMPLEXITY**, if we sort the list once, and search it many times, the cost of the sort can be allocated to each of the searches
+- Many algorithms depend on establishing and maintaining an **invariatn**. Invariant is something that is invariantly true
+- For selection sort, the invariant = the prefix is always sorted
+- Merge sort is a **divide and conquer** algorithm, invented by John Von Neumann
