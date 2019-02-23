@@ -135,3 +135,47 @@ In [8]: close_enough(x, 10000)
 Out[8]: True
 ```
 - **Bisection search for debugging**: you can try to use binary search to locate where the bug is in your program:D
+
+
+## Feb 21st 2019 Meetup @ NUS-SOC MR4
+
+### Lecture 8 (Algorithm efficienty, Random Access Model, Big O) Notes:
+
+- Big O notation to state algorithm complexity
+- **Efficiency is about algorithms, not coding details**
+- Clever algorithms are hard to invent, therefore we dont depend on clever algorithms, instead we depend on **problem reducing**
+- **When confronted with a problem, we want to reduce it to a previously solved problem**
+- How to turn a problem and fit it into a useful computation is usually about **how do i transform my problem to match a problem that some clever person already knows how to solve**
+- **How do we think about efficiency?** We think about it in **two dimensions**: SPACE AND TIME.
+- We can make a program run faster by using more memory, or use less memory at the cost of making it run more slowly.
+- YOU DONT MEASURE ALGORITHM TIME COMPLEXITY BY TIMING THE PROGRAM EXECUTION!
+- WE DO NOT THINK ABOUT COMPUTATIONAL COMPLEXITY IN TERMS OF HOW LONG A PROGRAM TAKES TO RUN ON A COMPUTER, because it is not a stable measure
+- That is influenced by the speed of the machine, cleverness of the Python implementation, and it **depends on the input!!**
+- **WE COUNT THE NUMBER OF BASIC STEPS**
+- **A STEP is an operation that takes constant time**, for example, `an assignment`, `a comparison`, `an array access` etc
+- To look at the computational complexity, we use RAM (**Random Access Machine**)
+- in RAM, instructions are executed one after another, sequentially, we assume **constant time to access memory**
+- RAM is not actually true, cos in old days memory is a tape, and in modern computers, there are memory hierarchy and parallel computing
+- Best case, Worst case, Expected(average) case
+- We almost never deal with expected case, because if the element is not in the list most of the time, then the query will lie near the end, for eg
+- **complexity analysis almost always focus on the worst case, and it provides an UPPER BOUND**, what is the worst that can happen, so i have no surprises, and worst cases happen often
+- We typically ignore the constants, we really care about **GROWTH WITH RESPECT TO SIZE**
+- **HOW DOES THE RUNNING TIME GROW AS THE SIZE OF THE INPUT GROWS**
+- WE DONT CARE if it is 3000 years or 9000 years, or 3000 days or 9000 days, it is too long either way. **SO WE IGNORE THE MULTIPLICATION FACTOR of N**
+- Asymptotic growth and Big O notation
+- O(n) means, this algorithm, the complexity, the time, grows linearly with n
+- It is actually Omicron, but usually we just type **O**
+- Upper bound of the asymptotic growth of the function
+- Function F grows **no faster** than the quadratic polynomial x^2
+- Order 1 = O(1), the time required is independent of the size of input
+- Order log n
+- Order n
+- Order n log n (log linear)
+- Order n^c (polynomial)
+- Order C^n (exponetial)
+- We usually want to capture the worst case as accurately as we can
+- Theoriest usually write Theta for the case, but we usually write just big O for around the worst case
+- O(n) where n is the number of digits of input `x`. So n = `log10(x)`
+- **PEOPLE JUST WRITE O(N) AND THINK THEY ARE DONE. THEY ARE NOT!!! YOU MUST ALWAYS KNOW WHAT N MEANS!!!**, especially when your function has multiple inputs
+- Have to very careful when looking at complexity, not to think you only have to look at the complexity of the program itself, like the number of recursive calls, but also **IS THERE SOMETHING THAT IS DOING INSIDE THIS FUNCTION THAT MIGHT BE MORE COMPLEX THAN YOU THINK?**
+
