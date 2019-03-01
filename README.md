@@ -189,3 +189,30 @@ Out[8]: True
 - Many algorithms depend on establishing and maintaining an **invariatn**. Invariant is something that is invariantly true
 - For selection sort, the invariant = the prefix is always sorted
 - Merge sort is a **divide and conquer** algorithm, invented by John Von Neumann
+
+### Lecture 10 (Hashing, Excetpions, and Classes) Notes:
+
+- hashing can be used to achieve near constant time lookups
+- hashing **converts the object to be hashed into an `int` that lies within a pre-defined range**
+- hashing will produce **bucket**
+- **Bucket: A list of items that have the same hash value.**
+- hashing and **collision**
+- hashing and Dictionary in Python is efficient search mechanism, but at the cost of space (memory)
+- **Unhandled Exception** will cause the program to crash
+- Unhandled exception can be handled, and this is a flow of control option in python.
+```python
+try:
+    int(x)
+except:
+    print("i dont know what error to cath...")
+```
+If we do not give the `except` a specific name, it will go catch all exception. This is not encouraged because it shows the programmer did not anticipat the error
+- in Python, everything is an object: **A collection of data and functions that operate on that data.**
+- Class/Object is similar to **module: a module is a collection of related functions**, like `import math` and `math.log()`, and `log()` is a function related to `math` module
+- The **data** of a class are called **attributes**
+- **Message Passing Metaphor**
+- **Method** is a **function associated with an Object**
+- Class allows you to extend the language, by defining your own type!
+- `Dict` and `List` are built in classes, their methods are read-only
+
+
