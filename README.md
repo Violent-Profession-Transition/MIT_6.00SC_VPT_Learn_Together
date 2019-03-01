@@ -115,6 +115,21 @@ format(0.1, ".25f")
 '0.1000000000000000055511151'
 ```
 
+Representation of 0.125 in decimal:
+```
+0.125 = 1*(10**-1) + 2*(10**-2) + 5*(10**-3)
+```
+
+Representation of 0.124 in binary:
+```
+0.125 = 0*(2**-1) + 0*(2**-2) + 1*(2**-3) = 0.001 base2
+```
+
+Representation of 0.1 in binray will be infinite, non-repeating decimal number:
+```
+0.1 = 1/10 = 1/(1010) base2 = 0.0(0011)^inf
+```
+
 - Do not test for `==` equality with floats.
 - Computers use binary, floats are actually very close approximations of the actual values. Testing for equality can result in an unexpected error, so **it's better to determine whether two numbers are close enough for our purposes** rather than precisely equal.
 ```python
@@ -189,6 +204,8 @@ Out[8]: True
 - Many algorithms depend on establishing and maintaining an **invariatn**. Invariant is something that is invariantly true
 - For selection sort, the invariant = the prefix is always sorted
 - Merge sort is a **divide and conquer** algorithm, invented by John Von Neumann
+
+## Feb 23rd 2019 Meetup @ NUS-SOC MR4
 
 ### Lecture 10 (Hashing, Excetpions, and Classes) Notes:
 
