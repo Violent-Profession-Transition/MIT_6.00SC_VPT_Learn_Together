@@ -232,4 +232,30 @@ If we do not give the `except` a specific name, it will go catch all exception. 
 - Class allows you to extend the language, by defining your own type!
 - `Dict` and `List` are built in classes, their methods are read-only
 
+### Lecture 11 (OOP, subclass, superclass, data hiding, inheritance) Notes:
+
+- **class vs instance**
+- **instance is the ACTUAL OBJECT built in accordance with the qualities of the class**
+- **Abstract data type**: A set of objects and the operations on those objects.
+- **The core of OOP is Abstract Data Type**. The fundamental notion of OOP is **Abstract data type: we extend the programming language by adding user defined types**
+- Why is it called **ABSTRACT data type**? Because it is an interface - **explains what the method *do*, not *how they do it***
+- Built-in data types already provide this interface for you to use the methods without bothering with the low-level implementation
+```python
+class intSet(object):
+    """An intSet is a set of integer."""
+    def __init__(self):
+        """Create an empty set of integer"""
+        self.numBuckets = 47
+        self.vals = []
+        for i in range(self.numBuckets):
+            self.vals.append([])
+    def hashE(self,e):
+        ...
+```
+`class xxx(object)` is saying xxx is a subclass of `object`, but this is redundent, as everything in Python is an object
+ - Data hiding: instance variable and class variable
+ - Data hiding makes data invisible to users of the object, requiring it to be accessed only via the object's methods.
+ - `__init__`, `__lt__`, `__repr__`, `__str__`, `__add__`
+ - Subclasses can use all the functions of their superclass. They can also use any functions that are defined within the subclass; however, if the subclass uses the same name for a function which has also been used in the superclass, it will only use the subclass definition of that function
+ - Encapsulation means that names (of variables and methods) are stored in locations that then have to be accessed, called namespaces.
 
