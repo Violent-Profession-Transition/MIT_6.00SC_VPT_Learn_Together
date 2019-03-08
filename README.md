@@ -138,7 +138,7 @@ In [1]: x = 0.0
 In [2]: numIters = 100000
 
 In [3]: for i in range(numIters):
-   ...:     x += 0.1    
+   ...:     x += 0.1
 
 In [4]: print(x)
 10000.000000018848
@@ -149,6 +149,8 @@ In [7]: def close_enough(x, y, epsilon=0.00001):
 In [8]: close_enough(x, 10000)
 Out[8]: True
 ```
+
+- If there is no integer `p` such that `num * (2^p)` is a whole number, then internal representation of `num` is always an approximation
 - **Bisection search for debugging**: you can try to use binary search to locate where the bug is in your program:D
 
 
