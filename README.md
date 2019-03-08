@@ -107,6 +107,7 @@ Python2's `import string` and `string.lowercase` will strip white space and non-
 
 - Base case: A base case is necessary in recursion; it determines when the procedure returns a value (or terminates), rather than continuing the recursive process.
 - Recursive case: A recursive case calls the recursive procedure on a simpler version of the problem.
+- Tower of Hanoi problem: you can have multiple recursive calls inside a function body, breaking down into a simplier version of the same problem, assume that can be solved, and let the recursions handle the rest
 
 
 ### Lecture 7 (Binary & Floating Point & Debugger) Notes:
