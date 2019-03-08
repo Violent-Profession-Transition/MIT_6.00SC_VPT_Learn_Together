@@ -59,6 +59,8 @@ Straight line program goes through the program line-by-line and carries out each
 - search problems with brute force and bisection
 - brute force and exhaustive enumeration
 - approximation = find a `y` such that `y*y = x +- epsilon`, if finding exact x is too time-consuming to find
+- **iterative algorithms** guess and check
+- Generating guess: 1. exhaustive enumeration 2. Bisection search 3 Newton-Raphson (for root finding)
 
 ### Lecture 4 (Function & Scope) Notes:
 
