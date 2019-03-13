@@ -232,7 +232,8 @@ If we do not give the `except` a specific name, it will go catch all exception. 
 - in Python, everything is an object: **A collection of data and functions that operate on that data.**
 - Class/Object is similar to **module: a module is a collection of related functions**, like `import math` and `math.log()`, and `log()` is a function related to `math` module
 - The **data** of a class are called **attributes**
-- **Message Passing Metaphor**
+- **Message Passing Metaphor**: for `L.append(e)`, I am passing the message "append(e)" to the object L. And then there's a mechanism for looking up what that message means, and then the object L executes that message and does something.
+- Nothing magical here, you can just think of `c.area()` as a fancy way of writing functions, you are absolutely correct
 - **Method** is a **function associated with an Object**
 - Class allows you to extend the language, by defining your own type!
 - `Dict` and `List` are built in classes, their methods are read-only
