@@ -259,9 +259,17 @@ class intSet(object):
         ...
 ```
 `class xxx(object)` is saying xxx is a subclass of `object`, but this is redundent, as everything in Python is an object
- - Data hiding: instance variable and class variable
- - Data hiding makes data invisible to users of the object, requiring it to be accessed only via the object's methods.
- - `__init__`, `__lt__`, `__repr__`, `__str__`, `__add__`
- - Subclasses can use all the functions of their superclass. They can also use any functions that are defined within the subclass; however, if the subclass uses the same name for a function which has also been used in the superclass, it will only use the subclass definition of that function
- - Encapsulation means that names (of variables and methods) are stored in locations that then have to be accessed, called namespaces.
+- underbar underbar in Python has special status
+- `__init__`: every time I create a new object of type `intSet`, `__init__` method of the class will be executed on that object
+- **self** is a local variable in the class definition environment
+- xxx is the **attributes** of the **INSTANCE** X of the **CLASS** intSet
+- automatically pass an implicit object, self is referring to the object being created
+- `s.insert(i)`, the `s` before the dot is actually the first argument to the method `insert`, so it is getting two arguments really
+- Data hiding and abstract data type
+- Data hiding: the things we are hiding is the instance variable, those are the variables associated with each instance of the class, AND class variables
+- Instance variable we get a new copy each time we create a new instance of the class; Class variables are associated with the class itself, and you get only one copy of them
+- It is useful to pull back and think about what abstractions would be useful, a style of programming where you organize your programs around abstract data types. Before writing the code, think about these types that would make it easy to write the code
+- Subclasses can use all the functions of their superclass. They can also use any functions that are defined within the subclass; however, if the subclass uses the same name for a function which has also been used in the superclass, it will only use the subclass definition of that function
+- Encapsulation means that names (of variables and methods) are stored in locations that then have to be accessed, called namespaces.
+- Global variables can be replaced by class variables
 
