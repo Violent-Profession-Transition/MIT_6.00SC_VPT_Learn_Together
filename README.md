@@ -299,7 +299,26 @@ class intSet(object):
 
 ### Lecture 13 () Notes:
 
-### Lecture 14 () Notes:
+- Random walks simulation doesnt provide us enough information to interpret it
+- how do we think about the results of programs when the programs themselves are stochastic
+- almost everything in the real world is stochastic
+- Copenhagen Doctrine, led by physicists Bohr and Heisenberg, argued that at its most predictable and most fundamental level, the behavior of the physical world cannot be predicted. One can make probabilistic statements of the form x is highly like to occur, but not statements of the form x is certain to occur
+- Einstein and Schrodinger vehemently disagreed
+- The heart of the debate **was the validity of casual-non-determinism**
+- Causal means caused by previous events
+- Causal non-determinism was the belief that not every event is caused by previous events
+- Predictive non-determinism: **our inability to make accurate measurements about the physical world makes it impossible to make precise predictions about the future**
+- from Einstein: "*the essentially statistical character of contemporary theory is solely to be ascribed to the fact that this theory operates with an incomplete description of physical systems*"
+- ie. things are not unpredictable, they just look unpredictable, because we dont know enough about the initial states
+- We have to assume that the world is non-deterministic, because we cant actually predict it
+- **Stochastic processes: a process is stochastic if its next state depends on BOTH the previous states and some random element**
+- random.choice... that function and almost all of the other functions in python that involve randomness are implemented using **random.random**
+- random.random generates a random float that is 0-1
+- in a stochastic process, two events are independent if the outcome of one event has no influence on the outcome of the other
+```python
+import matplotlib.pyplot as plt
+```
+- All plots should have informative titles, and all axes should be labeled
 
 
 ## March 9th 2019 Meetup @ NUS-SOC MR4
