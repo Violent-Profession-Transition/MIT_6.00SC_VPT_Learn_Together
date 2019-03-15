@@ -244,7 +244,7 @@ If we do not give the `except` a specific name, it will go catch all exception. 
 - **instance is the ACTUAL OBJECT built in accordance with the qualities of the class**
 - **Abstract data type**: A set of objects and the operations on those objects.
 - **The core of OOP is Abstract Data Type**. The fundamental notion of OOP is **Abstract data type: we extend the programming language by adding user defined types**
-- Why is it called **ABSTRACT data type**? Because it is an interface - **explains what the method *do*, not *how they do it***
+- Why is it called **ABSTRACT data type**? Because it is an interface - explains what the method *do*, not how they do it
 - Built-in data types already provide this interface for you to use the methods without bothering with the low-level implementation
 ```python
 class intSet(object):
@@ -273,3 +273,35 @@ class intSet(object):
 - Encapsulation means that names (of variables and methods) are stored in locations that then have to be accessed, called namespaces.
 - Global variables can be replaced by class variables
 
+## March 2nd 2019 Meetup @ NUS-SOC MR4
+
+### Lecture 12 (Generator, Random Walk) Notes:
+
+- `yield` is an example of a form called a **generator**
+- generator is like `return`, but for `return`, when it found the first thing, it's going to give me back the value and it is done.
+- generator is a function that remembers the point in the function body where it last returned, plus all the local variables
+- it is going to keep track of what was the state when i did the computation, so that if i call it a second time, it goes right back to that state and continues the computation
+- a **yield or Generator** does is like what you normally do when walking through a list, but it gives you some control
+- **HOW DO WE BUILD COMPUTATIONAL MODELS TO SOLVE REAL PROBLEMS?**
+- Analytic methods, like a mathematical function, predict behavior given some initial conditions and some parameters, like Newtonian physics, analytic models, Spring constants, things that let you predict what the system is going to do
+- but sometimes you are better off with **SIMULATION METHODS**
+- systems that are not mathematically tractable, successively refining a series of simulations
+- simulation means giving me an estimate, rather than a prediction, give me a sense of what might happen to a system under certain conditions and doing that multiple times, actually running a model oft he system rather than trying to predict exactly what's going to happen
+- simulation: build a model, give useful information about behavior of a sytem, approximation to reality
+- simulation models are **descriptive, not prescriptive**, it is a good guess of what's going to happen, for the same scenario, i run the simulation multiple times and get different answers
+- Einstein built a model that introduced this sort of stochastic thinking into the world of physics, Brownian motion
+- Brownian motion is an example of a **random walk**
+- Random walks is an **incredibly useful way of building a simulation**
+- The essential idea of a random walk is, if i have a system of interacting objects, could be pollen particles, i want to model what happens in that system under the assumption that each one of those things is going to move at each time step under some random distribution
+- build a set of classes that would let me build this simulation, part of the design process here is I want to try and invent classes that correspond to the types of things I expect to see happening
+- Model a drunk, model a field, and to keep track of where the drunk is in the field, called location
+
+
+### Lecture 13 () Notes:
+
+### Lecture 14 () Notes:
+
+
+## March 9th 2019 Meetup @ NUS-SOC MR4
+
+### Revision on testing, OOP, generator
