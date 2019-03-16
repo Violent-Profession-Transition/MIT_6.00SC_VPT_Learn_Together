@@ -324,3 +324,23 @@ import matplotlib.pyplot as plt
 ## March 9th 2019 Meetup @ NUS-SOC MR4
 
 ### Revision on testing, OOP, generator
+- classes of tests and defensive programming
+- unit testing: testing each function separately
+- regression testing: catch re-introduced errors that were previously fixed
+- integration testing: does the overall program work?
+- black box testing: designed without looking at the code
+- glass box testing: use code directly to test, path-complete if all potential paths through code is tested at least once
+- `c.distance(origin)` and `Coordinate.distance(c, origin)` are the same
+- `c.distance((origin)`, c iis object on which to call method, distance is name of method, origin is parameter (not including self, self is impled to be c)
+- `Coordinate.distance(c, origin)`, Coordinate is name of class, distance is name of method, (c, origin) are parameters, including an object on which to call the method, representing self
+- use `isinstance(x, type)` to check if an object is of certain class/type
+
+
+## March 16th 2019 Meetup @ NUS-SOC MR4
+
+### Revision on OOP:
+- `Animal.__str__(cat)` to still use the superclass method
+- `class D(C, B)` the order of the superclasses. Class D inherits from class C first then from class B. This means if a method is found in C, B won't be searched anymore.
+- dont mix up what is done in the constructor (or more specifically the __init__ method) and inheritance.
+- class variable is defined inside class BUT OUTSIDE ANY CLASS METHODS, like outside `__init__`, and it is shared among all objects/instances of that class
+- `zfill(3)` fill up the number with 0
