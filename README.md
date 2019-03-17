@@ -344,3 +344,5 @@ import matplotlib.pyplot as plt
 - dont mix up what is done in the constructor (or more specifically the __init__ method) and inheritance.
 - class variable is defined inside class BUT OUTSIDE ANY CLASS METHODS, like outside `__init__`, and it is shared among all objects/instances of that class
 - `zfill(3)` fill up the number with 0
+- p4 < p1 is equivalent to `p4.__lt__(p1)` which means we use the `__lt__` method associated with the type of p4, the specific object calling `__lt__` is the one that is going to define the type and therefore the method
+- Be careful when overriding methods in a subclass. **substitution principle**: important behaviors of superclass should be supported by all subclasses
