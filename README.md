@@ -95,6 +95,8 @@ print(divisors)
 - mutability: A mutable object's values can be changed; we must be careful when working with mutable objects not to inadvertently change them.
 - Tuples are immutable (as are strings). List and Dict are mutable.
 - A dictionary is mutable, with immutable keys, and unordered.
+- The usual way to access a value is `hand['a']`, where `'a'` is the key we want to find. However, this only works if the key is in the dictionary, otherwise we get a `KeyError`. To avoid this, the **safer way to access a value in dict** is to use **`hand.get('a', 0)`**. `d.get(key, default)` returns the value for `key` if `key` is in the dictionary, else `default`.
+- `dict.copy()` returns a shallow copy of the dict, kind of like `s[:]`
 
 ### Lecture 6 (Recursion & Divide and Conquer) Notes:
 
