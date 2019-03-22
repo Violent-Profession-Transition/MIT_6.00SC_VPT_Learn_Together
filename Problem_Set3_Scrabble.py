@@ -259,7 +259,22 @@ def play_game(word_list):
 
     * If the user inputs anything else, ask them again.
     """
-    # TO DO...
+    hand = {}
+    while True:
+        user_input = input("Enter n to deal a new hand, r to replay the last hand, or e to end game: ")
+        if user_input == "n":
+            hand = deal_hand(HAND_SIZE)
+            play_hand(hand, word_list)
+        elif user_input == "r":
+            if hand != {}:
+                play_hand(hand, word_list)
+            else:
+                print("You have not played a hand yet. Please play a new hand first!")
+        elif user_input == "e":
+            return
+        else:
+            print("Invalid command.")
+
 
 #====== unit testing ========
 def test_get_word_score():
@@ -441,9 +456,8 @@ def test_isValidWord(wordList):
 #
 # Build data structures used for entire session and play game
 #
-if __name__ == '__main__':
-    word_list = load_words()
-    play_game(word_list)
+word_list = load_words()
+play_game(word_list)
 
 test_get_word_score()
 test_update_hand()
