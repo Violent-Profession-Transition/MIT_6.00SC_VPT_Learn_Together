@@ -1,4 +1,5 @@
 from Problem_Set3_Scrabble import *
+from Problem_Set3_Permutation_Combination import *
 import time
 
 
@@ -16,10 +17,7 @@ def flatten_hand(hand):
             flat_list.append(letter)
     return flat_list
 
-def permutations(hand):
-    flat_list = flatten_h
-    for i in flat_list:
-        break
+# {'a': 2, 'e': 2, 'i': 2, 'm': 2, 'n': 2, 't': 2}
 
 
 def comp_choose_word(hand, word_list):
@@ -30,6 +28,7 @@ def comp_choose_word(hand, word_list):
     hand: dictionary (string -> int)
     word_list: list (string)
     """
+    # === Method 1: Brute Force for all words ===
     # for each word in the wordlist,
     # brute force check if any word
     # can be formed by the hand
@@ -47,7 +46,29 @@ def comp_choose_word(hand, word_list):
     print("chosen word is: ", chosen_word)
     return chosen_word
 
+# test
+comp_choose_word({'a': 1, 'p': 2, 's': 1, 'e': 1, 'l': 1}, word_list)
 
+def comp_choose_word_with_perm(hand, word_list):
+    # === Method 2: try using permutations of the hand ===
+    # first form a list of all possible permutations of the hand
+    flat_list = flatten_hand(hand)
+    print("flat_list is: ", flat_list)
+    n = len(flat_list)
+    while n > 0:
+        perms = perm_yield(flat_list, n)
+        print("perms list is: ", perms)
+        # feed all the perm in perms to word for validity check
+        chosen_word = ''
+        for p in perms:
+            if is_valid_word(''.join(p), hand, word_list):
+                chosen_word = ''.join(p)
+                print("chosen word is: ", chosen_word)
+                return chosen_word
+        n -= 1
+
+# test
+comp_choose_word_with_perm({'a': 1, 'p': 2, 's': 1, 'e': 1, 'l': 1}, word_list)
 
 #
 # Problem #6B: Computer plays a hand
