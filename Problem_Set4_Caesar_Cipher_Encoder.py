@@ -74,5 +74,5 @@ def apply_shift(text, shift):
     apply_shift('This is a test.', 8)
     'Apq hq hiham a.'
     """
-    res = apply_coder(text, build_encoder(8))
+    res = apply_coder(text, build_encoder(shift))
     return res
