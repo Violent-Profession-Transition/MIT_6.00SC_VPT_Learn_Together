@@ -1,0 +1,22 @@
+"""She sends you emails, but they’re all encrypted with the Caesar cipher!
+The problem is, you don’t know which shift key she is using. 
+The good news is, you know your
+friend only speaks and writes English words
+So if you can write a program to find the decoding
+that produces the maximum number of words, you can probably find the right decoding"""
+
+initialize most_matches = 0
+
+initialize shift = 0
+
+for guess_shift in range(0, 27):
+    num_matches = 0
+    decoded_text = apply_coder(text, build_decoder(guess_shift))
+    split up the words in decoded_text to form a list
+    for word in decoded_text_list:
+        if word in word_list:
+            num_matches += 1
+    if num_matches > most_matches:
+        most_matches = num_matches
+        shift = guess_shift 
+    
