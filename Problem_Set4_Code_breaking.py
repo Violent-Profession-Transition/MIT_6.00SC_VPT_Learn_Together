@@ -68,19 +68,11 @@ def find_best_shift(wordlist, text):
 
     for guess_shift in range(27):
         num_matches = 0
+        print("^^^^ now trying: ", guess_shift)
         decoded_text = apply_coder(text, build_decoder(guess_shift))
         print("now decoded_text is: ", decoded_text)
-        decoded_text_cleaned = decoded_text \
-                                    .replace("!", " ") \
-                                    .replace(",", " ") \
-                                    .replace(".", " ") \
-                                    .replace("?", " ") \
-                                    .replace(":", " ") \
-                                    .replace(";", " ") \
-                                    .replace("\"", " ") \
-                                    .replace("'", " ")
-        print("now decoded_text_cleaned is: ", decoded_text_cleaned)
-        decoded_text_list = decoded_text_cleaned.split(" ")
+        # split by white space
+        decoded_text_list = decoded_text.split()
         print("now decoded_text_list is: ", decoded_text_list)
         for word in decoded_text_list:
             if is_word(wordlist, word):

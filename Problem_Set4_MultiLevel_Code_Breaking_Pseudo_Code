@@ -1,0 +1,9 @@
+1. if the text is "hi, how are you? i am well", encrypting it with shift_1 will encode the whole string
+2. shift_2 will encode as another layer from position_2
+3. shift_3 will encode as another layer from position_3
+...
+
+4. to decode the ciphertext, trying a shift from position 0, will reveal proper texts as words in word_text, and also reveal spaces
+5. we can split the decoded text with spaces, and see which shift_1 guess can reproduce the most words
+6. then start from the last word and try position_2, shift_2
+7. repeat until position = length of text
