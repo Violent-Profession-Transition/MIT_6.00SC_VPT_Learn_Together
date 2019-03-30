@@ -54,11 +54,11 @@ class NewsStory(object):
     def __init__(self, guid, title,
                 subject, summary, link):
         """
-        globally unique identifier (GUID) – a string that serves as a unique name for this entry
-        title – a string
-        subject – a string
-        summary – a string
-        link to more content – a string
+        globally unique identifier (GUID) a string that serves as a unique name for this entry
+        title a string
+        subject a string
+        summary a string
+        link to more content a string
         """
         self.guid = guid
         self.title = title

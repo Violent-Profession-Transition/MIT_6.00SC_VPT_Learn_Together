@@ -149,8 +149,8 @@ class PhraseTrigger(Trigger):
      fires when a given phrase is in any of the
     subject, title, or summary,
     case MUST match
-     “New York City” will match:
-     In the heart of New York City’s famous cafe
+     "New York City" will match:
+     In the heart of New York City's famous cafe
      New York Cityrandomtexttoproveapointhere 
     but not:
     I love new york city
