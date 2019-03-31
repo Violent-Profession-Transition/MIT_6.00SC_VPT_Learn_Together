@@ -1,9 +1,13 @@
+#!/usr/bin/python2
+
 # 6.00
 # Problem Set 5 Test Suite
 import unittest
 
 from Problem_Set5_Intro_RSS import NewsStory
 from Problem_Set5_Triggers import *
+from Problem_Set5_Filtering import filter_stories
+from Problem_Set5_UserTrigger_Config import readTriggerConfig
 
 
 score = 0.0
@@ -199,7 +203,7 @@ class ProblemSet5(unittest.TestCase):
         for s in [noa, nob, noc]:
             self.assertFalse(pt.evaluate(s), "PhraseTrigger is case-insensitive, and shouldn't be")
         add_points(5)
-"""
+
     def test8FilterStories(self):
         add_potential_points(5)
         pt = PhraseTrigger("New York City")
@@ -241,7 +245,43 @@ class ProblemSet5(unittest.TestCase):
         self.assertTrue(nob in filtered_stories)
         self.assertEquals(2, len(filtered_stories))
         add_points(5)
-"""
+
+
+    def test9UserTriggers(self):
+        # Dependency Injection! (the nasty way):
+        triggers = \
+                'class Trigger(object):\n   def evaluate():\n       return False\nclass WordTrigger(Trigger):\n            def __init__(self, word):\n                self.word = word.lower()\n                print "Injected!"\n            def hash(self):\n                raise NotImplementedError\nclass SubjectTrigger(Trigger):\n    def __init__(self, word):\n        self.word = word.lower()\n        print "Injected Subject!"\n    def hash(self):\n        return "SUBJECT-" + self.word\nclass TitleTrigger(WordTrigger):\n    def hash(self):\n        return "TITLE-" + self.word\nclass SummaryTrigger(WordTrigger):\n    def hash(self):\n        return "SUMMARY-" + self.word\nclass NotTrigger(Trigger):\n    def __init__(self, trigger):\n        self.trigger = trigger\n        print "Injected!"\n    def hash(self):\n        return "NOT-" + self.trigger.hash()\nclass PhraseTrigger(Trigger):\n    def __init__(self, phrase):\n        self.phrase = phrase\n        print "Injected!"\n    def hash(self):\n        return "PHRASE-" + self.phrase\nclass CompositeTrigger(Trigger):\n    def __init__(self, trigger1, trigger2):\n        self.trigger1 = trigger1\n        self.trigger2 = trigger2\nclass AndTrigger(CompositeTrigger):\n    def hash(self):\n        t1_hash = self.trigger1.hash()\n        t2_hash = self.trigger2.hash()\n        if t1_hash > t2_hash:\n            return "AND-" + t1_hash + "-" + t2_hash\n        else:\n            return "AND-" + t2_hash + "-" + t1_hash\nclass OrTrigger(CompositeTrigger):\n    def hash(self):\n        t1_hash = self.trigger1.hash()\n        t2_hash = self.trigger2.hash()\n        if t1_hash > t2_hash:\n            return "OR-" + t1_hash + "-" + t2_hash\n        else:\n            return "OR-" + t2_hash + "-" + t1_hash\n\n\n'
+        import compiler
+        f = open('Problem_Set5_Combined.py')
+
+        add_potential_points(5)
+        src = ""
+        for line in f:
+            if line == "if __name__ == '__main__':\n":
+                print "found line!"
+                break
+            src += line
+        src += triggers
+        print src
+        compiled = compiler.compile(src, 'compile-errors', 'exec')
+        exec compiled in locals(), globals()
+        t1 = SubjectTrigger('sports')
+        t2 = SummaryTrigger('Obama')
+        t3 = PhraseTrigger('Hillary Clinton')
+        t4 = OrTrigger(t2, t3)
+        trigger_map = {t1.hash() : False,
+                       t4.hash() : False}
+        print trigger_map
+
+        trigger_list = readTriggerConfig("triggers.txt")
+        for trigger in trigger_list:
+            hash = trigger.hash()
+            self.assertTrue(hash in trigger_map)
+            self.assertFalse(trigger_map[hash])
+            trigger_map[hash] = True
+        for found in trigger_map.values():
+            self.assertTrue(found, "Missing trigger")
+        add_points(5)
 
 # run the test by python3 Problem_Set5_test.py
 if __name__ == "__main__":
