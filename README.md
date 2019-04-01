@@ -299,7 +299,7 @@ class intSet(object):
 - Model a drunk, model a field, and to keep track of where the drunk is in the field, called location
 
 
-### Lecture 13 () Notes:
+### Lecture 13 (Non-determinism and Stochastic process) Notes:
 
 - Random walks simulation doesnt provide us enough information to interpret it
 - how do we think about the results of programs when the programs themselves are stochastic
@@ -348,3 +348,5 @@ import matplotlib.pyplot as plt
 - `zfill(3)` fill up the number with 0
 - p4 < p1 is equivalent to `p4.__lt__(p1)` which means we use the `__lt__` method associated with the type of p4, the specific object calling `__lt__` is the one that is going to define the type and therefore the method
 - Be careful when overriding methods in a subclass. **substitution principle**: important behaviors of superclass should be supported by all subclasses
+
+## March 23rd 2019 Penang Break
