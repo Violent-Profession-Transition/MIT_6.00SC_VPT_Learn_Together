@@ -19,6 +19,7 @@ tiles in the room are cleaned
 """
 import random
 import math
+import matplotlib.pyplot as plt
 
 import ps6_visualize
 
@@ -260,7 +261,7 @@ class StandardRobot(Robot):
 
 # === Problem 3
 
-def runSimulation(num_robots=1, speed=1, width=5, height=5, min_coverage=1, num_trials=1, robot_type=StandardRobot):
+def runSimulation(num_robots=1, speed=1, width=5, height=5, min_coverage=1, num_trials=1, robot_type=StandardRobot, use_tk=True):
     """
     Runs NUM_TRIALS trials of the simulation and returns the mean number of
     time-steps needed to clean the fraction MIN_COVERAGE of the room.
@@ -282,19 +283,20 @@ def runSimulation(num_robots=1, speed=1, width=5, height=5, min_coverage=1, num_
     total = 0
     for t in range(num_trials):
         print("===== trail {} =====".format(t))
-        count = run_trial(num_robots, width, height, min_coverage, robot_type, speed)
+        count = run_trial(num_robots, width, height, min_coverage, robot_type, speed, use_tk)
         print("trail {} takes {} clock ticks to clean the room of {}x{} for {} coverage".format(t, count, width, height, min_coverage))
         total += count
     # calculate the average
     avg = float(total) / num_trials
     print("avg is: ", avg)
+    return avg
 
 
 def room_cleaned(room, min_coverage):
     """check if the room's clean tiles have reached min coverage"""
     return (room.getNumCleanedTiles()/float(room.getNumTiles())) >= min_coverage
 
-def run_trial(num_robots, width, height, min_coverage, robot_type, speed):
+def run_trial(num_robots, width, height, min_coverage, robot_type, speed, use_tk):
     """a single trial of simulation
     return number of clock ticks to clean > min_coverage
     """
@@ -310,8 +312,9 @@ def run_trial(num_robots, width, height, min_coverage, robot_type, speed):
         robots.append(robot)
     # count the clock ticks
     count = 0
-    # init the visualization
-    anim = ps6_visualize.RobotVisualization(num_robots, width, height, delay=.01)
+    if use_tk:
+        # init the visualization
+        anim = ps6_visualize.RobotVisualization(num_robots, width, height, delay=.01)
     # terminate when room is clean
     while not room_cleaned(room, min_coverage):
         # print("clock tick>>>")
@@ -320,16 +323,18 @@ def run_trial(num_robots, width, height, min_coverage, robot_type, speed):
         for robot in robots:
             # print(robot)
             robot.updatePositionAndClean()
-        # update the tk window after delay
-        anim.update(room, robots)
-    # stop tk
-    anim.done()
+        if use_tk:
+            # update the tk window after delay
+            anim.update(room, robots)
+    if use_tk:
+        # stop tk
+        anim.done()
     return count
 
 # test runSimulation()
-runSimulation()
-runSimulation(width=10,height=10,min_coverage=0.75)
-runSimulation(width=20,height=20)
+# runSimulation(use_tk=False)
+# runSimulation(width=10,height=10,min_coverage=0.75,use_tk=False)
+# runSimulation(width=20,height=20,use_tk=False)
 
 
 # === Problem 4
@@ -341,15 +346,55 @@ runSimulation(width=20,height=20)
 
 def showPlot1():
     """
-    Produces a plot showing dependence of cleaning time on number of robots.
+    Produces a plot showing dependence of
+    cleaning time on number of robots.
     """
-    raise NotImplementedError
+    plt.figure(1) # 1st figure
+    plt.title("How long does it take to clean 80% of a 20x20 room with each of 1-10 robots?")
+    # x is num of robots
+    plt.xlabel("Number of robots")
+    x = list(range(1,11))
+    # y is clock ticks
+    plt.ylabel("Clock ticks to clean room")
+    y = []
+    trials=20
+    for num_robot in range(1,11):
+        avg = runSimulation(num_robots=num_robot,width=20,height=20,min_coverage=0.8,num_trials=trials,use_tk=False)
+        y.append(avg)
+    plt.plot(x,y,'ro')
+    plt.text(5,400,"Number of Trials: {}".format(trials))
+    plt.show()
+
+showPlot1()
+
 
 def showPlot2():
     """
-    Produces a plot showing dependence of cleaning time on room shape.
+    Produces a plot showing dependence of
+    cleaning time on room shape.
     """
-    raise NotImplementedError
+    plt.figure(2) # 2nd figure
+    plt.title("two robots to clean rooms of various shapes for 80% coverage")
+    # x is num of robots
+    plt.xlabel("Room Shape")
+    dimensions = [(20,20),(25,16),(40,10),(50,8),(80,5),(100,4)]
+    x = []
+    for d in dimensions:
+        pair = "{}x{}".format(d[0],d[1])
+        x.append(pair)
+    # y is clock ticks
+    plt.ylabel("Clock ticks to clean room")
+    y = []
+    trials=20
+    for d in dimensions:
+        avg = runSimulation(num_robots=2,width=d[0],height=d[1],min_coverage=0.8,num_trials=trials,use_tk=False)
+        y.append(avg)
+    print(x,y)
+    plt.plot(list(range(6)),y,'ro')
+    plt.text(3,600,"Number of Trials: {}".format(trials))
+    plt.show()
+
+# showPlot2()
 
 # === Problem 5
 
@@ -358,8 +403,43 @@ class RandomWalkRobot(Robot):
     A RandomWalkRobot is a robot with the "random walk" movement strategy: it
     chooses a new direction at random after each time-step.
     """
-    pass
+    def updatePositionAndClean(self):
+        """
+        Simulate the passage of a single time-step.
+        Move the robot to a new position and mark the tile it is on as having
+        been cleaned.
+        """
+        # mark the tile it is on as clean
+        self.room.cleanTileAtPosition(self.pos)
+        print(self)
+        # try move to a new position
+        # with a random direction
+        print("trying moving now ~")
+        new_direction = random.randint(0,359)
+        self.setRobotDirection(new_direction)
+        print("random walk----")
+        new_pos = self.pos.getNewPosition(self.direction, self.speed)
+        # if NOT hit a wall:
+        if self.room.isPositionInRoom(new_pos):
+            self.pos = new_pos
+            # and update the cleaned tiles
+            self.room.cleanTileAtPosition(self.pos)
+            print(self)
+            print("moved to new tile and cleaned!")
+        else:
+            print("will hit a wall! stop and turn...")
+            # will hit a wall, so only change direction
+            # random direction
+            while True:
+                new_direction = random.randint(0,359)
+                if new_direction != self.direction:
+                    break
+            self.setRobotDirection(new_direction)
 
+# test runSimulation() using RandomWalkRobot
+# runSimulation(robot_type=RandomWalkRobot)
+# runSimulation(width=10,height=10,min_coverage=0.75,robot_type=RandomWalkRobot)
+# runSimulation(width=20,height=20,robot_type=RandomWalkRobot)
 
 # === Problem 6
 
@@ -370,5 +450,53 @@ def showPlot3():
     """
     Produces a plot comparing the two robot strategies.
     """
-    raise NotImplementedError
+    plt.figure(3) # 3rd figure
+    plt.title("Straight-line Robot vs Random-Walk Robot")
+    # x is room size for square rooms
+    plt.xlabel("Room Size")
+    x = [a**2 for a in range(10,31,10)]
+    # y_straight is clock ticks for straight line robot
+    plt.ylabel("Clock ticks to clean room")
+    y_straight = []
+    trials=10
+    for i in range(10,31,10):
+        avg = runSimulation(num_robots=1,width=i,height=i,min_coverage=0.8,num_trials=trials,use_tk=False)
+        y_straight.append(avg)
+    # y_rw is clock ticks for random walk robot
+    y_rw = []
+    for i in range(10,31,10):
+        avg = runSimulation(num_robots=1,width=i,height=i,min_coverage=0.8,num_trials=trials,robot_type=RandomWalkRobot,use_tk=False)
+        y_rw.append(avg)
+    print(x,y_rw)
+    plt.plot(x,y_straight,'bo', x,y_rw,'ro')
+    plt.text(3,600,"Number of Trials: {}".format(trials))
+    plt.show()
 
+showPlot3()
+
+def showPlot4():
+    """
+    Produces a plot showing dependence of
+    cleaning time on number of robots.
+    """
+    plt.figure(4)
+    plt.title("How long does it take to clean 80% of a 20x20 room with each of 1-10 robots?")
+    # x is num of robots
+    plt.xlabel("Number of robots")
+    x = list(range(1,11))
+    # y is clock ticks
+    plt.ylabel("Clock ticks to clean room")
+    y = []
+    z = []
+    trials=20
+    for num_robot in range(1,11):
+        avg = runSimulation(num_robots=num_robot,width=20,height=20,min_coverage=0.8,num_trials=trials,use_tk=False)
+        y.append(avg)
+    for num_robot in range(1,11):
+        avg = runSimulation(num_robots=num_robot,width=20,height=20,min_coverage=0.8,num_trials=trials,robot_type=RandomWalkRobot,use_tk=False)
+        z.append(avg)
+    plt.plot(x,y,'ro', x,z,'bo')
+    plt.text(5,400,"Number of Trials: {}".format(trials))
+    plt.show()
+
+showPlot4()
