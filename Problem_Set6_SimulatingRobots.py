@@ -278,13 +278,13 @@ def runSimulation(num_robots=1, speed=1, width=5, height=5, min_coverage=1, num_
     robot_type: class of robot to be instantiated (e.g. Robot or
                 RandomWalkRobot)
     """
-    print("##### Start simulations #####")
+    #print("##### Start simulations #####")
     # run trials
     total = 0
     for t in range(num_trials):
-        print("===== trail {} =====".format(t))
+        #print("===== trail {} =====".format(t))
         count = run_trial(num_robots, width, height, min_coverage, robot_type, speed, use_tk)
-        print("trail {} takes {} clock ticks to clean the room of {}x{} for {} coverage".format(t, count, width, height, min_coverage))
+        #print("trail {} takes {} clock ticks to clean the room of {}x{} for {} coverage".format(t, count, width, height, min_coverage))
         total += count
     # calculate the average
     avg = float(total) / num_trials
@@ -365,7 +365,7 @@ def showPlot1():
     plt.text(5,400,"Number of Trials: {}".format(trials))
     plt.show()
 
-showPlot1()
+# showPlot1()
 
 
 def showPlot2():
@@ -411,23 +411,23 @@ class RandomWalkRobot(Robot):
         """
         # mark the tile it is on as clean
         self.room.cleanTileAtPosition(self.pos)
-        print(self)
+        # print(self)
         # try move to a new position
         # with a random direction
-        print("trying moving now ~")
+        # print("trying moving now ~")
         new_direction = random.randint(0,359)
         self.setRobotDirection(new_direction)
-        print("random walk----")
+        # print("random walk----")
         new_pos = self.pos.getNewPosition(self.direction, self.speed)
         # if NOT hit a wall:
         if self.room.isPositionInRoom(new_pos):
             self.pos = new_pos
             # and update the cleaned tiles
             self.room.cleanTileAtPosition(self.pos)
-            print(self)
-            print("moved to new tile and cleaned!")
+            # print(self)
+            # print("moved to new tile and cleaned!")
         else:
-            print("will hit a wall! stop and turn...")
+            # print("will hit a wall! stop and turn...")
             # will hit a wall, so only change direction
             # random direction
             while True:
@@ -472,7 +472,7 @@ def showPlot3():
     plt.text(3,600,"Number of Trials: {}".format(trials))
     plt.show()
 
-showPlot3()
+# showPlot3()
 
 def showPlot4():
     """
@@ -490,13 +490,45 @@ def showPlot4():
     z = []
     trials=20
     for num_robot in range(1,11):
-        avg = runSimulation(num_robots=num_robot,width=20,height=20,min_coverage=0.8,num_trials=trials,use_tk=False)
-        y.append(avg)
-    for num_robot in range(1,11):
-        avg = runSimulation(num_robots=num_robot,width=20,height=20,min_coverage=0.8,num_trials=trials,robot_type=RandomWalkRobot,use_tk=False)
-        z.append(avg)
+        avg_s = runSimulation(num_robots=num_robot,width=20,height=20,min_coverage=0.8,num_trials=trials,use_tk=False)
+        y.append(avg_s)
+        avg_r = runSimulation(num_robots=num_robot,width=20,height=20,min_coverage=0.8,num_trials=trials,robot_type=RandomWalkRobot,use_tk=False)
+        z.append(avg_r)
+    print(x,y,z)
     plt.plot(x,y,'ro', x,z,'bo')
+    plt.legend(('StandardRobot', 'RandomWalkRobot'))
     plt.text(5,400,"Number of Trials: {}".format(trials))
     plt.show()
 
 showPlot4()
+
+def showPlot5():
+    """
+    Produces a plot showing dependence of
+    cleaning time on room shape.
+    """
+    plt.figure(5)
+    plt.title("two robots to clean rooms of various shapes for 80% coverage")
+    # x is num of robots
+    plt.xlabel("Room Shape")
+    aspect_ratios = []
+
+    # y and z is clock ticks
+    plt.ylabel("Clock ticks to clean room")
+    y = []
+    z = []
+    trials=200
+    for width in [10, 20, 25, 50]:
+        height = 300/width
+        aspect_ratios.append(float(width) / height)
+        avg_s = runSimulation(num_robots=2,width=width,height=height,min_coverage=0.8,num_trials=trials,use_tk=False)
+        y.append(avg_s)
+        avg_r = runSimulation(num_robots=2,width=width,height=height,min_coverage=0.8,num_trials=trials,robot_type=RandomWalkRobot,use_tk=False)
+        z.append(avg_r)
+    print(aspect_ratios,y,z)
+    plt.plot(aspect_ratios,y,'ro',aspect_ratios,z,'bo')
+    plt.legend(('StandardRobot', 'RandomWalkRobot'))
+    plt.text(3,600,"Number of Trials: {}".format(trials))
+    plt.show()
+
+showPlot5()
