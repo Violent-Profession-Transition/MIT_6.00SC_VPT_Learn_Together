@@ -350,3 +350,45 @@ import matplotlib.pyplot as plt
 - Be careful when overriding methods in a subclass. **substitution principle**: important behaviors of superclass should be supported by all subclasses
 
 ## March 23rd 2019 Penang Break
+## March 30th 2019 KL break
+
+## April 6th 2019 Meetup @ Johor Bahru R&F
+
+### Lecture 14 (Monte Carlo and Inferential Statistics) Notes:
+- Pascal is considered the founder of probability theory
+- "is it profitable to bet that given 24 rolls of a pair of fair dice, you would roll a 6,6?"
+```python
+import random
+def rollDie():
+    """returns a random int between 1 and 6"""
+    return random.choice([1,2,3,4,5,6])
+def testRoll(n=10):
+    result = ''
+    for i in range(n):
+        print(rollDie())
+def checkPascal(numTrials=10000):
+    doubleSix = 0.0
+    for i in range(numTrials):
+        for j in range(24):
+            d1 = rollDie()
+            d2 = rollDie()
+            if d1 == 6 and d2 == 6:
+                doubleSix += 1
+                break
+    print("probability of getting doubleSix = ", doubleSix / numTrials)
+    # probability of getting doubleSix =  0.4892
+```
+- in practice, write simulation and do probabilities at the same time (figure out the answer analytically) code vs math
+- **Monte Carlo Simulation** is the most popular kind of simulation: **A simulation which arrives at an approximation of a probability by running many, many trials.**
+- Monte Carlo was coined in 1949 by Stanislaw Ulam and Nicholas Metropolis
+- from Ulam: "...1946, ...pure combinatorial calculations, a more practical method than 'abstract thinking', lay it out 100 times and simply observe and count the number of successful plays... and more generally, how to change processes described by certain differential equations into an equivalent form interpretable as a succession of random operations"
+- as early as 1946, people were thinking about the question of moving away from solving systems of equations, to **using randomized techniques to simulate things and try to find out what the actual answer was**
+- Monte Carlo technique was used during the Manhattan project to predict what would happen during nuclear fission and worked
+- Monte Carlo simulations are an example of **inferential statistics**
+- **random sample tends to exhibit the same properties as the population from which it is drawn.** **(always ask yourself: DOES THIS ASSUMPTION HOLD?!)**
+- will 1000000 times of throwing a dice representative of all possible throws of the dice, the infinite number possible throws?
+- we have to think about the number of tests and how close the answer is to what you would get if you did things at random **(null hypothesis is what you get with a random event)**
+- when you do a simulation, if you get something that is far from the null hypothesis, or when you sample a population, you get something that is distant from the null hypothesis, you can assume that maybe you are seeing something real
+- the **law of large numbers (Bernoulli's law)** underlies the inferential statistics: repeated **independent** tests
+- law of large numbers does not imply that if i start out with deviations from the expected behavior, those deviations are likely to be "evened out" by opposite deviations in the future **(independent means memoryless)**
+- **gambler's fallacy**: The belief that random numbers will even out constantly (e.g. that after a string of heads, it's “time for” the coin to come up tails.)
