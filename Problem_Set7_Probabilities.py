@@ -20,7 +20,7 @@ threeH = 0
 HTH = 0
 any_2H1T = 0
 any_HgtT = 0
-for trial in range(10000):
+for trial in range(1000000):
     outcome = flipThreeTimes()
     if outcome == "HHH":
         threeH += 1
@@ -33,7 +33,7 @@ for trial in range(10000):
         any_2H1T += 1
         any_HgtT += 1
 
-print("probability of getting three heads is: ", float(threeH)/10000)
+print("probability of getting three heads is: ", float(threeH)/1000000)
 
 # 2. The sequence head, tail, head: A : {H,T,H}
 print("probability of getting HTH is: ", float(HTH)/10000)
@@ -64,11 +64,11 @@ def detectYahtzee(result):
     # use string.count()
     return result.count(result[0]) == len(result)
     
-
+tries = 10000000
 yahtzee = 0
-for trial in range(10000):
+for trial in range(tries):
     result = rollYahtzee()
     if detectYahtzee(result):
         yahtzee += 1
-print("probability of getting Yahtzee is: ", float(yahtzee)/10000)
+print("probability of getting Yahtzee is: ", float(yahtzee)/tries)
 

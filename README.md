@@ -352,7 +352,7 @@ import matplotlib.pyplot as plt
 ## March 23rd 2019 Penang Break
 ## March 30th 2019 KL break
 
-## April 6th 2019 Meetup @ Johor Bahru R&F
+## April 6th 2019 Meetup @ Johor Bahru R&F Part 1
 
 ### Lecture 14 (Monte Carlo and Inferential Statistics) Notes:
 - Pascal is considered the founder of probability theory
@@ -392,3 +392,80 @@ def checkPascal(numTrials=10000):
 - the **law of large numbers (Bernoulli's law)** underlies the inferential statistics: repeated **independent** tests
 - law of large numbers does not imply that if i start out with deviations from the expected behavior, those deviations are likely to be "evened out" by opposite deviations in the future **(independent means memoryless)**
 - **gambler's fallacy**: The belief that random numbers will even out constantly (e.g. that after a string of heads, it's “time for” the coin to come up tails.)
+
+
+### Lecture 15 (statistical thinking) Notes:
+- how many samples are needed to have confidence in result?
+- at the root of it, is **variance**: meausre of how much spread in the possible outcomes
+- **having multiple trials** is more important absolute number of flipping of coins
+- **standard deviation**: measuring the fraction of values distant to the mean
+- randomness play less a role, evidence is small standard deviation
+- standard deviation is **relative**
+- **coefficient of variation** is **more useful than standard deviation**
+- **coefficient of variation** when the mean is near zero, will be very large
+- **coefficient of variation** cannot be used for confidence intervals
+- **more believable**
+- show things side-by-side, axis need to be same units, otherwise deceptive
+- distribution of values from trials
+- normal distribution peaks at mean, falls off symmetrically
+- normal distribution: 1. **nice mathematical properties** 2. many naturally occurring examples
+- **mathematically characterized by 2 characters: mean and standard deviation**, knowing these two is the same as knowing the whole distribution
+- mean and sd can be used to build **confidence interval**
+- **confidence interval** range likely to contain the *unknown value*, and a confidence level that the *unknown value* lies within that range
+- 52%+-4%, 95% of the time...
+- empirical rules for normal distribution (68% within 1sd ...)
+- **standard error** is an estimate of the standard deviation
+- experimental setup measurement error, the mistakes you make in measurement is normally distributed
+
+### Lecture 16 (randomness in physical modeling) Notes:
+- computational models
+- uniform distribution
+- exponential distributions, only memoryless, like drug clearing
+- analytic model vs simulation model
+- fidelity and credibility
+- utility
+
+### Lecture 17 (linear regression and curve fitting) Notes:
+- key assumption is that simulation is reality
+- conceptual model is corrent
+- sanity check vs stastical test
+- statistical test is not about truth
+- physical reality
+- theoretical model
+- computationl models
+- cheating on experimental errors
+- Hooke's law: f = -kx, elastic limit
+- array similar to list, but has point-wise operations
+- array useful for math
+- C/Pascal array is NOT THE SAME as array in python and matlab
+- measure of the goodness of the fit
+- objective function: how good is a particular fit
+- least square fit
+- polyfit in Pylab (observed X, observed Y, degree of polynomial)
+- linear regression does not mean it is for LINEAR LINES ONLY, it can be used to find polynomials other than lines!
+- build a model to better understand the reality
+- model can have very bad predictive value
+- if you are willing to get a high enough degree polynomial, you can get a pretty good fit to almost any data, BUT IT IS NOT USEFUL!
+- look at the raw data
+- it is not just a question of how good a fit is
+- interplay the physical reality and computational model
+- coefficient of determination R^2
+
+### Lecture 18 (computational model & Optimzation problem) Notes:
+- R^2 =1 explains all the variability of the data, x and y change relationship
+- R^2 = 0, the model is worthless
+- model, theory, and computation and relavance of data
+- accurary vs precision
+- start with experiment -> used computation to find and evaluate a model -> use theory and analysis and computation to derive a consequence of the model
+- optimization problem: 1. objective function 2. a set of constriants to be satisfied
+- classic optimization problem and map their solutions
+- **problem reduction**
+- knapsack and greedy algorithm
+- greedy algorithm is **iterative**, at each step, choose locally optimal solution
+- efficient algorithm complexity nlgn
+- enumerate all possibilities and then choose best that meets constraint
+
+## April 6th 2019 Meetup @ Johor Bahru R&F Part2
+
+### Lecture 19 ("solve" optimization problem) Notes:
+- 
