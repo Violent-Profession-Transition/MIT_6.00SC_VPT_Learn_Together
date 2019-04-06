@@ -53,29 +53,26 @@ class SimpleVirus(object):
     Representation of a simple virus (does not model drug effects/resistance).
     """
     def __init__(self, maxBirthProb, clearProb):
-
         """
         Initialize a SimpleVirus instance, saves all parameters as attributes
         of the instance.        
         maxBirthProb: Maximum reproduction probability (a float between 0-1)        
         clearProb: Maximum clearance probability (a float between 0-1).
         """
+        self.maxBirthProb = maxBirthProb
+        self.clearProb = clearProb
 
-        # TODO
 
     def doesClear(self):
-
         """ Stochastically determines whether this virus particle is cleared from the
         patient's body at a time step. 
         returns: True with probability self.clearProb and otherwise returns
         False.
         """
+        return random.random() < self.clearProb
 
-        # TODO
 
-    
     def reproduce(self, popDensity):
-
         """
         Stochastically determines whether this virus particle reproduces at a
         time step. Called by the update() method in the SimplePatient and
@@ -94,22 +91,22 @@ class SimpleVirus(object):
         maxBirthProb and clearProb values as this virus. Raises a
         NoChildException if this virus particle does not reproduce.               
         """
-
-        # TODO
+        # popDensity should be calculated in the
+        # update method of the SimplePatient class
+        if random.random() <= (self.maxBirthProb * (1-popDensity)):
+            return SimpleVirus(self.maxBirthProb, self.clearProb)
+        else:
+            raise NoChildException()
 
 
 
 class SimplePatient(object):
-
     """
     Representation of a simplified patient. The patient does not take any drugs
     and his/her virus populations have no drug resistance.
-    """    
-
+    """
     def __init__(self, viruses, maxPop):
-
         """
-
         Initialization function, saves the viruses and maxPop parameters as
         attributes.
 
@@ -118,22 +115,19 @@ class SimplePatient(object):
 
         maxPop: the  maximum virus population for this patient (an integer)
         """
-
-        # TODO
+        self.viruses = viruses  # list of virus instances
+        self.maxPop = maxPop  # max virus population for this patient
 
 
     def getTotalPop(self):
-
         """
         Gets the current total virus population. 
         returns: The total virus population (an integer)
         """
-
-        # TODO        
+        return len(self.viruses)     
 
 
     def update(self):
-
         """
         Update the state of the virus population in this patient for a single
         time step. update() should execute the following steps in this order:
@@ -148,21 +142,98 @@ class SimplePatient(object):
         returns: The total virus population at the end of the update (an
         integer)
         """
+        # 1. determine if virus particle survives and update virus list
+        # print("before update, self.viruses: ", self.viruses)
+        #print(">>>>>update the patient...")
+        survived_viruses = []
+        for virus in self.viruses:
+            # if type(virus) == NoChildException:
+            #     print("NoChildException")
+            #     continue
+            # elif not virus.doesClear():
+            #     print("virus survived")
+            #     new_viruses.append(virus)
+            if not virus.doesClear():
+                survived_viruses.append(virus)
+        #print("self.viruses after update is: ", len(self.viruses))
+        # 2. calculate current population density
+        # defined as the current virus population
+        # divided by the maximum population
+        popDensity = float(len(survived_viruses))/self.maxPop
+        #print("popDensity is: ", popDensity)
+        # 3. reproduce the viruses and add offspring virus
+        offsprings = []
+        for virus in survived_viruses:
+            try:
+                virus_new = virus.reproduce(popDensity)
+                # self.viruses.append(virus.reproduce(popDensity))
+                offsprings.append(virus_new)
+            except NoChildException:
+                continue
 
-        # TODO
+        # return the new virus population
+        self.viruses = survived_viruses + offsprings
+        return len(self.viruses)
 
-
+# test problem1
+# v1 = SimpleVirus(0.99, 0.05)
+# for i in range(10):
+#     print(v1.doesClear())
+# virus_list = []
+# for i in range(5):
+#     virus_list.append(SimpleVirus(0.99,0.05))
+# print("initial virus_list: ", virus_list)
+# p = SimplePatient(virus_list, 1000)
+# print("initial virus population: ", p.getTotalPop())
+# for i in range(10):
+#     print("p.update() returns: ", p.update())
 
 #
 # PROBLEM 2
 #
 def simulationWithoutDrug():
-
     """
     Run the simulation and plot the graph for problem 2 (no drugs are used,
     viruses do not have any drug resistance).    
     Instantiates a patient, runs a simulation for 300 timesteps, and plots the
     total virus population as a function of time.    
     """
+    virus_list = []
+    # maxBirthProb, Maximum Reproduction Probability for a Virus Particle = 0.1
+    # clearProb, Maximum Clearance Probability for a Virus Particle = 0.05 
+    for i in xrange(100):
+        virus_list.append(SimpleVirus(0.1, 0.05))
+    # simplePatient
+    # viruses, a list of 100 SimpleVirus instances
+    # maxPop, Maximum Sustainable Virus Population = 1000
+    patient = SimplePatient(virus_list, 1000)
+    # simulates changes to
+    # the virus population for 300 time steps (i.e. 300 calls to update)
+    virus_pop = [patient.getTotalPop()]
+    for i in xrange(300):
+        virus_pop.append(patient.update())
+        # print("len of virus_pop is: ", len(virus_pop))
+    return virus_pop
 
-    # TODO
+# do 10 trials of simulation
+total_pop = range(301)
+mean_pop = range(301)
+for i in xrange(10):
+    virus_pop = simulationWithoutDrug()
+    for x in xrange(301):
+        total_pop[x] += virus_pop[x]
+print("total_pop is now: ", total_pop)
+
+for j in xrange(301):
+    mean_pop[j] = float(total_pop[j]) / 10
+print("mean_pop is now: ", mean_pop)
+
+# pylab.plot need to appear in front of .legend
+pylab.plot(range(301), mean_pop, 'bo', label="Virus without drug")
+pylab.title('Virus Population vs 300 Time Steps')
+pylab.xlabel('Time Steps [step]')
+pylab.ylabel('Virus Population [Num of viruses]')
+pylab.legend(loc='best')
+
+
+pylab.show()
