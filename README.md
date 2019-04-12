@@ -467,5 +467,59 @@ def checkPascal(numTrials=10000):
 
 ## April 6th 2019 Meetup @ Johor Bahru R&F Part2
 
-### Lecture 19 ("solve" optimization problem) Notes:
-- 
+### Lecture 19 ("solve" optimization problem and machine learning) Notes:
+- power set, smallest subset is empty set, largest subset is all the items
+- will find at least one optimal answer
+- greedy algorithm only choose locally optimal
+- global optimum
+- inherently exponential
+- machine learning recognize complex patterns
+- inductive inference
+- two approaches to ML: supervised learning and unsupervised learning
+- supervised learning: label with each example in a training set
+- if the label is discrete, it is a classification
+- if the label is real value, it is regression
+- are labels accurate? maybe some of the real-world labels are wrong
+- is past representative of future?
+- do you have enough training data to generalize?
+- feature extraction
+- **how tight should the fit be?**
+- minimize training error
+- overfitting training data will not generalize well for future data
+- unsupervised learning has no labels
+- in unsupervised learning, you are learning **regularities of data**, is to discover the structure
+- clustering
+- clustering algorithm Walmart beer and diapers
+- clustering algorithm Amazon books
+- clustering algorithm in insurance companies, biology, netflix
+- clustering is optimization problem
+- good clustering should have low intra-cluster dissimilarity, high inter-cluster dissimilarity
+- model dissimilarity using **variance**
+- find a set of clusters C such that the "badness" of C is minimized?? single item as each cluster
+- **constraint**: at most K clusters, distance between clusters
+- k-means (exactly k clusters) | hierarchical
+- hierarchical clustering and agglomerative clustering
+- linkage criteria: single-linkage or connectiveness (best case), complete-linkage (furthest)
+- n^2 complexity, and only finding local opimum
+- **feature space/selection** is very importantly
+- multi-dimensional data need feature vector that incorporates multiple features
+
+### Lecture 20 (more clustering) Notes:
+- feature number -> feature vector
+- how to scale the elements of the vector
+- dynamic range, how to cluster and scale your features
+- feature selection and scaling is critical, it is the **thinking**
+- what features to use and how to scale? DOMAIN KNOWLEDGE
+- Minkowski Metric and Manhattan distance
+- Manhattan is grid-like, metric (for genes eg)
+- nominal categories, that have names, we convert them to a number
+- domain knowledge and judgement people have to make
+- scaling or normalization, every feature between 0-1
+- teeth related to what they eat
+- point, cluster, centroid, cluster set, mammal
+- certain teeth have higher dynamic range
+- scaling really matters
+- all county data, scaling might be a problem
+- k-means is very efficient
+- centroid is the "average point"
+
