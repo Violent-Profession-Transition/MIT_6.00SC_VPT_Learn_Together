@@ -332,9 +332,9 @@ def run_trial(num_robots, width, height, min_coverage, robot_type, speed, use_tk
     return count
 
 # test runSimulation()
-# runSimulation(use_tk=False)
-# runSimulation(width=10,height=10,min_coverage=0.75,use_tk=False)
-# runSimulation(width=20,height=20,use_tk=False)
+runSimulation(use_tk=False)
+runSimulation(width=10,height=10,min_coverage=0.75)
+runSimulation(width=20,height=20)
 
 
 # === Problem 4
@@ -437,9 +437,9 @@ class RandomWalkRobot(Robot):
             self.setRobotDirection(new_direction)
 
 # test runSimulation() using RandomWalkRobot
-# runSimulation(robot_type=RandomWalkRobot)
-# runSimulation(width=10,height=10,min_coverage=0.75,robot_type=RandomWalkRobot)
-# runSimulation(width=20,height=20,robot_type=RandomWalkRobot)
+runSimulation(robot_type=RandomWalkRobot)
+runSimulation(width=10,height=10,min_coverage=0.75,robot_type=RandomWalkRobot)
+runSimulation(width=20,height=20,robot_type=RandomWalkRobot)
 
 # === Problem 6
 

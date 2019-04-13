@@ -392,30 +392,43 @@ def checkPascal(numTrials=10000):
 - the **law of large numbers (Bernoulli's law)** underlies the inferential statistics: repeated **independent** tests
 - law of large numbers does not imply that if i start out with deviations from the expected behavior, those deviations are likely to be "evened out" by opposite deviations in the future **(independent means memoryless)**
 - **gambler's fallacy**: The belief that random numbers will even out constantly (e.g. that after a string of heads, it's “time for” the coin to come up tails.)
+- you can never get absolute certainty from sampling, "i am certain within the following range that i have the right answer"
 
 
 ### Lecture 15 (statistical thinking) Notes:
+- **just because we have the right answer doesn't mean our thinking is any good**
 - how many samples are needed to have confidence in result?
 - at the root of it, is **variance**: meausre of how much spread in the possible outcomes
 - **having multiple trials** is more important absolute number of flipping of coins
-- **standard deviation**: measuring the fraction of values distant to the mean
-- randomness play less a role, evidence is small standard deviation
-- standard deviation is **relative**
+- each **trial** will give a separate **outcome**, then we can look at **the outcomes of the different trials** for **variance**
+- **standard deviation**: measuring the fraction of values distant/close to the mean
+- relationship between the number of samples we've looked at and how much confidence we should have in the answer
+- As you flip more coins, the variance between trials should get smaller because randomness is playing less a role
+- **it is not good enough to get lucky and get the correct answer, you have to have evidence that can convince somebody that really is the answer, and the evidence here is the small standard deviation**
+- standard deviation is **relative**, **it should be relatively small!! (100 vs 1 is meaningless, it should be relative to the MEAN!!!!!)**
 - **coefficient of variation** is **more useful than standard deviation**
-- **coefficient of variation** when the mean is near zero, will be very large
-- **coefficient of variation** cannot be used for confidence intervals
-- **more believable**
+- **WARNING1: when mean is near 0, small changes in the mean are going to lead to large changes in the coefficient of variation** (dont use when mean is near 0)
+- **WARNING2: coefficient of variation cannot be used for confidence intervals**
+```
+y = [1,1,2,2,3,3,3,4]
+pylab.hist(y, bins=20) # for histogram
+```
+- **results with smaller SD is more credible, not more accurate, but more believable**
 - show things side-by-side, axis need to be same units, otherwise deceptive
-- distribution of values from trials
 - normal distribution peaks at mean, falls off symmetrically
 - normal distribution: 1. **nice mathematical properties** 2. many naturally occurring examples
 - **mathematically characterized by 2 characters: mean and standard deviation**, knowing these two is the same as knowing the whole distribution
-- mean and sd can be used to build **confidence interval**
-- **confidence interval** range likely to contain the *unknown value*, and a confidence level that the *unknown value* lies within that range
-- 52%+-4%, 95% of the time...
+- mean and sd can be used to compute **confidence interval**
+- *So instead of estimating an unknown parameter, and typically we estimate it by a single value, the mean of a set of trials*, a **confidence interval instead allows us to estimate the unknown paramter by providing a range that is likely to contain the unknown value**, and a **confidence level** that the *unknown value* lies within that range
 - empirical rules for normal distribution (68% within 1sd ...)
-- **standard error** is an estimate of the standard deviation
-- experimental setup measurement error, the mistakes you make in measurement is normally distributed
+- Another trick, **standard error** is an estimate of the standard deviation, **you can only do this under the assumption that the errors are normally distributed and also that the sample population is small relative to the actual population**
+- from polls experience, the results are indeed typically normally distributed, so not a bad assumption
+- If for example, a pollster sample 1000 voters, 46% say they will vote for XYZ, and the Standard Error is 1.58%. We would interpret this to mean that in 95% of the time, the true percentage of votes for XYZ is within 2 SE of 46%.
+- SE = `((p*(100-p)/n))**0.5`
+- 1.58% SE calculated from formula is pretty close to 1.6% from simulations. SE is an attempt to just use a formula to estimate what the SD is going to be (because the differences are normally distributed, the distribution is normal, the standard error is a very good approximation to the actual SD) *that is what pollsters rely on*
+- many random variables have an approximately normal distribution
+- **many experimental setups have normally distributed measurement errors**, first discovered by 1800s by Gauss, who assumed a normal distribution of measurement errors in his analysis of astronomical data
+- the mistakes you make in measurement is likely to be normally distributed
 
 ### Lecture 16 (randomness in physical modeling) Notes:
 - computational models
@@ -523,3 +536,34 @@ def checkPascal(numTrials=10000):
 - k-means is very efficient
 - centroid is the "average point"
 
+## April 12th 2019 Meetup @ Johor Bahru Pinnicle Part 1
+
+### Lecture 21 (K-means, graph) Notes:
+- **unlike hierarchical clustering, where we could run it and get what's called a dendrogram and stop at any level and see what we liked, k-means involves knowing in advance how many clusters we want**
+- supervised and unsupervised
+- supervised learning: training set with labels, infer relationship between features and labels
+- unsupervised learning: all unlabelled data, relationship among points, infer relationship among points (features)
+- Be wary of overfitting, if trainning set data is small
+- Features matter, which, normalized, weight
+- **FEUATURES MATTER**
+- Graph theoretic model
+- A graph is a set of nodes (vertices) connected by set of edges (arcs)
+- digraph or directed graph if edges uni-directional
+- first graph problem by Euler, 7-bridge problem
+- Euler's Model o fthe problem
+- edges can have weights
+- WWW weighted directed graph in Google
+- Graph subset of digraph
+- adjacency matrix NxN matrix
+- adjacency list
+
+## April 13th 2019 Meetup @ Johor Bahru Pinnicle Part 2
+
+### Lecture 22 (Graph) Notes:
+- 
+
+### Lecture 23 (Dynamic Programming) Notes:
+- optimal substructure and overlapping subproblem
+- merge sort has optimal substructure
+- merge sort does not have overlapping subproblem
+- shortest path has both properties, so can use 
