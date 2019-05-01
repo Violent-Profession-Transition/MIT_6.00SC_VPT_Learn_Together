@@ -67,3 +67,52 @@ for f in foods:
 testGreedys(foods, 750)
 testGreedys(foods, 100)
 testGreedys(foods, 1000)
+
+def get_all_subsets(some_list):
+    """Returns all subsets of size 0 - len(some_list) for some_list"""
+    if len(some_list) == 0:
+        # If the list is empty, return the empty list
+        return [[]]
+    subsets = []
+    first_elt = some_list[0]
+    rest_list = some_list[1:]
+    # Strategy: Get all the subsets of rest_list; for each
+    # of those subsets, a full subset list will contain both
+    # the original subset as well as a version of the subset
+    # that contains first_elt
+    for partial_subset in get_all_subsets(rest_list):
+        subsets.append(partial_subset)
+        next_subset = partial_subset[:] + [first_elt]
+        subsets.append(next_subset)
+    return subsets
+
+def ps(L):
+    """ps is get all the powerset"""
+    print("input L is: ", L)
+    if len(L)==1:
+        print("base case")
+        return [[],L]
+    else:
+        print("recursive case")
+        subsets = []
+        first_elm = L[0]
+        remain_L = L[1:]
+        # for all the item in the subsets
+        # in remaining L
+        for item in ps(remain_L):
+            print("item in the existing subsets: ", item)
+            print("append item")
+            subsets.append(item)
+            print("now subsets is: ", subsets)
+            print("append [first_elm, item]")
+            subsets.append([first_elm] + item)
+            print("now subsets is: ", subsets)
+        return subsets
+
+
+
+#  print(ps([1]))
+#  print(ps([2]))
+print(ps([1,2]))
+print(ps([1,2,3]))
+
