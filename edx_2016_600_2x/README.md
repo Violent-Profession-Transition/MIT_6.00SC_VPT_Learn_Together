@@ -33,3 +33,39 @@
 - sequence of locally "optimal" choices don't always yield a globally optimal solution
 - like climbing uphill with greedy algorithm to always go up, it will find local optimum
 - greedy algorithm is easy to implement, computationally efficient, but does not always yield the best solution, and we do not even know how good the approximation is
+
+
+## Lecture 2
+- Brute Force Algorithm (enumerate all possible combinations of items, and remove all of the combinations whose total units exceeds the allowed weight)
+- Implement Brute Force with Search Tree
+- Because each edge of this tree represents a decision to take or not take an item, such trees are called **decision trees**, or more often **search trees**
+- Left-first, depth-first enumeration
+- Computational complexity: time based on the number of nodes generated, number of levels is number of items to choose from
+- **if there are n items the number of nodes is: Sum 2^0 + 2^1 + 2^2 + 2^3 ...**
+- Dynamic Programming is just a name. (Richard Bellman)
+- **Dynamic Programming is a name that is intentionally deceptive**, it was chosen because Richard Bellman wanted to hide the maths from US Air Force
+```
+def fib(n):
+    if n<=1:
+        return 1
+    else:
+        return fib(n-1) + fib(n-2)
+```
+the complexity is roughly O(fib**n), *growth is proportional to the growth in the value of the result*
+- **Memorization** create a table to record value
+- Dynamic programming can work for two cases
+- **1. Optimal substructure: a globally optimal solution can be found by combining optimal solutions to local subproblems**
+- **2. Overlapping subproblems: finding an optimal solution involves solving the same problem multiple times**
+- For 0/1 Knapsack problem, if the items are all different, then each node is solving a different problem. No two nodes have the same contents of the knapsack or the same two items to choose from
+- Search Tree: Each Node = items in knapsack, remaining items, current value, remaining weight
+- Node 0: `{}, [a,b,c,d], 0, 5`, Node 1: `{a}, [b,c,d], 6, 2` ...
+- **what problem is solved at each node? Given remaining weight, maximize value by choosing among remaining items**, while items in knapsack or current value does not matter!
+- Computational complexity can be a very subtle notion, the running time of fastMaxVal is governed by the number of **distinct pairs to consider**
+- **pseudo polynomial algorithm, most of the time runs in polynomial time, but in worse case, when there are no overlapping subproblems, it reverts to exponential time**
+
+## Summary of Lec1&2
+- Many problems of practical importance can be formulated as **optimization problems**
+- Given a problem can you think of it as defining an **objective function that has to be minimized or maximized, subject to some set of constraints**?
+- **First try with Greedy algorithms** often provide adequate (though not necessarily optimal) solutions (optimized locally rather than globally)
+- **if cannot solve with greedy algorithms, you are stuck with** Finding an optimal solution is **exponentially hard**
+- but dynamic programming often yields good performance for a subclass of optimization problems -- those with optimal substructure and overlapping subproblems, and solutions always correct and fast under the right circumstances
