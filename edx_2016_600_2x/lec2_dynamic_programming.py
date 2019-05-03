@@ -52,6 +52,7 @@ def maxVal(remaining_items, remaining_weight):
     Returns a tuple of the total value of a solution
     to 0/1 knapsack problem and
     the items of that solution
+    return (max_value, (items_for_this_value))
     ***the key is maxVal() for withVal and withoutVal is almost identical!
     ***except the remaining_weight is adjusted with withVal
     """

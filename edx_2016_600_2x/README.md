@@ -36,12 +36,16 @@
 
 
 ## Lecture 2
+
+### Brute-force Algorithms
 - Brute Force Algorithm (enumerate all possible combinations of items, and remove all of the combinations whose total units exceeds the allowed weight)
 - Implement Brute Force with Search Tree
 - Because each edge of this tree represents a decision to take or not take an item, such trees are called **decision trees**, or more often **search trees**
 - Left-first, depth-first enumeration
 - Computational complexity: time based on the number of nodes generated, number of levels is number of items to choose from
 - **if there are n items the number of nodes is: Sum 2^0 + 2^1 + 2^2 + 2^3 ...**
+
+### Dynamic Programming
 - Dynamic Programming is just a name. (Richard Bellman)
 - **Dynamic Programming is a name that is intentionally deceptive**, it was chosen because Richard Bellman wanted to hide the maths from US Air Force
 ```
@@ -69,3 +73,36 @@ the complexity is roughly O(fib**n), *growth is proportional to the growth in th
 - **First try with Greedy algorithms** often provide adequate (though not necessarily optimal) solutions (optimized locally rather than globally)
 - **if cannot solve with greedy algorithms, you are stuck with** Finding an optimal solution is **exponentially hard**
 - but dynamic programming often yields good performance for a subclass of optimization problems -- those with optimal substructure and overlapping subproblems, and solutions always correct and fast under the right circumstances
+
+## Lecture 3
+
+### Graph
+- Computational models: programs that help us understand the world and solve practical problems
+- Knapsack: map the informal problem of choosing what to eat into an optimization problem and how we can design a program to solve it
+- Modeling the knapsak problem is relatively easy! Because we **did not have to capture any relationship among the items**
+- **Graph = set of nodes(vertices) + set of edges(arcs) each consisting of a pair of nodes**
+- undirected graph = graph
+- directed graph (di-graph) with source and destination nodes
+- unweighted or weighted edges
+- **Graphs are useful to capture relationships among entities, almost any kind of relationship can be modeled by a graph**
+- **TREES are an important special case of a GRAPH**
+- **TREE** is a directed graph in which each pair of nodes is connected by a single path
+- We often speak of interconnected entities or relationships as forming a network
+- computer networks, transportation networks, financial networks, sewer networks, political networks, criminal networks, social networks etc
+- First use of graph theory: Leonhard Euler 1735
+- graph models **abstracts away irrelevant details like size of land mass, length of bridges**
+- each node except the 1st and last must have an even number of edges
+- **Dense (there are a lot of edges relative to the number of nodes)** Digraphs are commonly represented as **Adjacency matrix: rows = source nodes, columns = destination nodes**
+- **Simpler: Adjacency List**: associate with each node a list of destination nodes
+- Why is Graph a subclass of DiGraph?
+- **Substitution Rule**: if client code works correctly using an instance of the supertype, it should also work correctly when an instance of the subtype is substituted for the instance of the supertype **(any program that works with a digraph will also work with a graph!)**
+- Classic Graph Optimization Problem: *Shorest path (shortest sequence of edges)*,*Shortest weighted path (minimize sum of weights of the edges in the path)
+- the presence of cycles or the possible presence of cycles complicates solving the shortest path problem
+- We didnt have to worry about cycles when we looked at **search tree**, because **trees dont have cycles**
+
+### Depth-First Search (DFS)
+- similar to the left-first, depth-first method of enumerating a search tree
+- think of it as a way of **enumerating all paths from starting node to the ending node, and once we have got them all, we pick one of the shortest**
+- but graph may have **cycles**, so we must keep track of what nodes we have visited!
+- DFS begins by **choosing one child of the start node, it then chooses one child of that node, and so on... going deeper and deeper, until it either reaches the goal node or a node with no children**
+- DFS's **backtracking plays an important role**
