@@ -216,16 +216,19 @@ def simulationWithoutDrug():
     return virus_pop
 
 # do 10 trials of simulation
-total_pop = range(301)
-mean_pop = range(301)
-for i in xrange(10):
+numTrials = 10
+# total_pop = range(301)
+# mean_pop = range(301)
+total_pop = [i*0 for i in xrange(301)]
+mean_pop = [i*0 for i in xrange(301)]
+for i in xrange(numTrials):
     virus_pop = simulationWithoutDrug()
     for x in xrange(301):
         total_pop[x] += virus_pop[x]
 print("total_pop is now: ", total_pop)
 
 for j in xrange(301):
-    mean_pop[j] = float(total_pop[j]) / 10
+    mean_pop[j] = float(total_pop[j]) / numTrials
 print("mean_pop is now: ", mean_pop)
 
 # pylab.plot need to appear in front of .legend
