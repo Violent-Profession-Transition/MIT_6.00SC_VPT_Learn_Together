@@ -106,3 +106,22 @@ the complexity is roughly O(fib**n), *growth is proportional to the growth in th
 - but graph may have **cycles**, so we must keep track of what nodes we have visited!
 - DFS begins by **choosing one child of the start node, it then chooses one child of that node, and so on... going deeper and deeper, until it either reaches the goal node or a node with no children**
 - DFS's **backtracking plays an important role**
+
+### Breadth-First Search (BFS)
+- BFS code is abit more complicated than DFS, because it **is exploring many paths in paralle, not one at a time**
+- BFS only finds one solution, as soon as it finds a solution, it returns it
+- **Explore all path with n hops before exploring any path with more than n hops**
+- BFS explores the path **in length order**, the first path it finds is **a** shortest path, there may be another path that is equally short, but it will not be shorter
+- **When we want to do a weighted shortest path, ie minimize the sum of weights of the edges, not the n hops or number of edges, DFS can be easily modified to do this, but BFS cannot**
+- BFS cannot easily find weighted shortest path, since shortest **weighted path** may have more than the minimum number of hops
+
+### Graph summary
+- graphs are COOL
+- graphs are often the best way to create a model of many things, it capture **relationships among objects**
+- many important problems can be posed as graph optimization problems we already know how to solve, like DFS and BFS
+- A clique is an unweighted graph where each node connects to all other nodes.
+- After knowing our source and destination, we must travel through 2 additional nodes without touching any node twice. For the first node, we have (n-2) choices, and for the second, we have (n-3) choices
+- BFS begins by checking all the paths of length 1. In its worst case, it must check the paths to every node from the source to find the destination. This is at most (n-1) checks.
+- Shortest Path DFS must always explore every path from the source to the destination to ensure that it has found the shortest path. Once BFS has found a path, it knows that it is the shortest, and does not have to explore any other paths.
+- Weighted un-directed graph, you dont weight two directions of an edge differently
+- Dijkstra's algorithm is a general method to find the shortest distances from a node to all other nodes in a graph
