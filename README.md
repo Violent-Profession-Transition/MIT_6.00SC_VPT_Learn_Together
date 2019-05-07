@@ -395,7 +395,7 @@ def checkPascal(numTrials=10000):
 - you can never get absolute certainty from sampling, "i am certain within the following range that i have the right answer"
 
 
-### Lecture 15 (statistical thinking) Notes:
+### Lecture 15 (statistical thinking, SD, SE, variance) Notes:
 - **just because we have the right answer doesn't mean our thinking is any good**
 - how many samples are needed to have confidence in result?
 - at the root of it, is **variance**: meausre of how much spread in the possible outcomes
@@ -428,15 +428,29 @@ pylab.hist(y, bins=20) # for histogram
 - 1.58% SE calculated from formula is pretty close to 1.6% from simulations. SE is an attempt to just use a formula to estimate what the SD is going to be (because the differences are normally distributed, the distribution is normal, the standard error is a very good approximation to the actual SD) *that is what pollsters rely on*
 - many random variables have an approximately normal distribution
 - **many experimental setups have normally distributed measurement errors**, first discovered by 1800s by Gauss, who assumed a normal distribution of measurement errors in his analysis of astronomical data
-- the mistakes you make in measurement is likely to be normally distributed
+- the mistakes you make in measurement is likely to be normally distributed, *most of science assumes normal distributions of measurement errors in reaching conclusions about the validity of their data*
 
-### Lecture 16 (randomness in physical modeling) Notes:
-- computational models
-- uniform distribution
-- exponential distributions, only memoryless, like drug clearing
+### Lecture 16 (randomness in physical modeling, monte carlo for pi) Notes:
+- One of the interesting things about a Gaussian is it can be fully characterized by its mean and its standard deviation. This concept of being able to take a curve and characterize it with a small number of parameters is a very important way of looking at **modeling physical systems (how do we construct computational models that will help us understand the real world?)**
+- When we can, we love to model distributions as Gaussian, becuase they are so nicely characterized, nice rules that tell us how close things lie to the mean et cetera. However, it is important to understand that if something is not actually Gaussian distributed, and we pretend it otherwise, we can get very misleading results out of our model (not all distributions are normal, for instance)
+- Gaussian/Normal distribution (symmetric and can be fully characterized by its mean and standard deviation);
+- Uniform distribution **eg roll dice** (each outcome has the same probability. The distribution can be fully characterized with a single parameter, the range);
+- Exponential distribution **eg plan highway systems to model inter-arrival times, how much time there is between each car entering a checkpoint** (the *only* continuous memory-less distribution, meaning that the probability of any outcome at a point in time is independent of the outcome at any previous time)
+- Assume that at each time step, each molecule has a probability `p` of being cleared by the body, the system is memoryless in the sense that at each step the probability of a particular molecule being clearred is independent of what happened at the previous steps
 - analytic model vs simulation model
-- fidelity and credibility
-- utility
+- **Evaluating a model, ask two things: 1. fidelity to the actual physical situation (credibility, and reasoning) and 2. utility (what questions are answerable with the model)**
+- not easy to write a simple closed-form formula in analytic model but easy to produce a simulation model
+- **Monty Hall Problem**: Monty opens a door that he knows does not contain the prize, the choice of doors is NOT independent of choice of player, *because Monty will never choose the door that the player has initially picked*
+- From probability point of view, things can be based upon whether decisions are independent of previous decisions (not independent), monty is choosing based on what he knows
+- These kind of simulations are very useful for tackling problems in which predictive non-determinism plays a role, when there is some inherent randomness in the problem, and hard to model analytically, and use randomness in the code
+- BUT using randomized algorithms to solve problems in which randomness plays no role! The ability to use randomization to solve problems that are not random   
+- in the 1700s, French mathematicians Buffon and Laplace proposed finding pi using stochastic simulation in needle-dropping
+- There is no guarantee that by running a bigger trial, you will get a more accurate result. There is a guarantee that I can have more confidence in the result. Since the SD is small, and the numbers are normally distributed, you can be pretty sure the true value of PI is 3.1407 et cetera, plus or minus 0.0002, with a 95% confidence
+- **1. A problem that had nothing to do with randomness, the value of pi is not a random number. Yet we use randomness to solve it. 2. And we use simple statistics to know whether or not we should believe our solution**
+- Same technique can be used to do **integration (area under curve)**
+- You can draw a curve, drop your needles, you count how many fall under the curve, how many dont fall under the curve in some larger area
+- this kind of simulation is NOT good way for solving **single integrals**, it is much better to use something like *Simpson's rule*
+- but it is very useful for double and triple integration using Monte Carlo simulation
 
 ### Lecture 17 (linear regression and curve fitting) Notes:
 - key assumption is that simulation is reality
