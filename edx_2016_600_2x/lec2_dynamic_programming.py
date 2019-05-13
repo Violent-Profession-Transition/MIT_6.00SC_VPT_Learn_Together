@@ -64,35 +64,42 @@ def maxVal(remaining_items, remaining_weight):
     nextItem = remaining_items[0]
     if nextItem.getCost() > remaining_weight:
         # Explore right branch only
-        print("Discard left branch, only on Right branch since remaining_items 1st item too heavy... For {} R{}".format(remaining_items, remaining_weight))
+        print("Discard left branch, only on Right branch since remaining_items 1st item too heavy... For {} R{}"
+            .format(remaining_items, remaining_weight))
         return maxVal(remaining_items[1:], remaining_weight)
     else:
         # First Explore left branch
-        print("First, test with Value branch>>> For {} R{}".format(remaining_items, remaining_weight))
+        print("First, test with Value branch>>> For {} R{}"
+            .format(remaining_items, remaining_weight))
         withVal, withToTake = maxVal(
             remaining_items[1:],
             remaining_weight - nextItem.getCost()
         )
-        print("withVal, withToTake are: ", withVal, withToTake, "For {} R{}".format(remaining_items, remaining_weight))
+        print("withVal, withToTake are: ", withVal, withToTake, "For {} R{}"
+            .format(remaining_items, remaining_weight))
         withVal += nextItem.getValue()
         print("Add 1st Left to withVal, ", withVal)
         # Then Explore right branch
-        print("Second, test withOUT Value branch<<< For {} R{}".format(remaining_items, remaining_weight))
+        print("Second, test withOUT Value branch<<< For {} R{}"
+            .format(remaining_items, remaining_weight))
         withoutVal, withoutToTake = maxVal(
             remaining_items[1:],
             remaining_weight
         )
-        print("withoutVal, withoutToTake are: ", withoutVal, withoutToTake, "For {} R{}".format(remaining_items, remaining_weight))
+        print("withoutVal, withoutToTake are: ", withoutVal, withoutToTake, \
+            "For {} R{}".format(remaining_items, remaining_weight))
         # Explore better branch
         if withVal > withoutVal:
             print("withVal better, add 1st Left item to withToTake in knapsack")
             result = (withVal, withToTake + (nextItem,))
-            print("@@@RESULT For {} R{}, is: {} #####".format(remaining_items, remaining_weight, result))
+            print("@@@RESULT For {} R{}, is: {} #####"
+                .format(remaining_items, remaining_weight, result))
             return result
         else:
             print("withoutVal better")
             result = (withoutVal, withoutToTake)
-            print("***RESULT For {} R{}, is: {} #####".format(remaining_items, remaining_weight, result))
+            print("***RESULT For {} R{}, is: {} #####"
+                .format(remaining_items, remaining_weight, result))
             return result
 
 def dynamicMaxVal(remaining_items, remaining_weight, memo={}):
