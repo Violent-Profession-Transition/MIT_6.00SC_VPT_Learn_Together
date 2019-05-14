@@ -492,9 +492,9 @@ yVals = pylab.array(yVals)
 - classic optimization problem and map their solutions
 - **problem reduction**
 - knapsack and greedy algorithm
-- greedy algorithm is **iterative**, at each step, choose locally optimal solution
-- efficient algorithm complexity nlgn
-- enumerate all possibilities and then choose best that meets constraint
+- **greedy** algorithm is **iterative**, at each step, choose locally optimal solution
+- greedy efficient algorithm complexity O(nlgn)
+- **Brute Force way**: enumerate all possibilities and then choose best that meets constraint
 
 ## April 6th 2019 Meetup @ Johor Bahru R&F Part2
 
