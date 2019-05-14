@@ -453,38 +453,42 @@ pylab.hist(y, bins=20) # for histogram
 - but it is very useful for double and triple integration using Monte Carlo simulation
 
 ### Lecture 17 (linear regression and curve fitting) Notes:
-- key assumption is that simulation is reality
-- conceptual model is corrent
-- sanity check vs stastical test
+- key assumption is that simulation is a model of reality. **statistics test are about the simulation, not about the reality itself**
+- **Before believing the results of any simulation, we have to have confidence that our conceptual model is correct AND we have correctly implemented that conceptual model**
+- scientists always run some experiments to see whether their derived result is actually at least plausibly correct
+- **statistics are good to show we have got the little details right at the end, bu we have got to do a sanity check FIRST**
 - statistical test is not about truth
-- physical reality
-- theoretical model
-- computationl models
-- cheating on experimental errors
-- Hooke's law: f = -kx, elastic limit
-- array similar to list, but has point-wise operations
-- array useful for math
-- C/Pascal array is NOT THE SAME as array in python and matlab
-- measure of the goodness of the fit
-- objective function: how good is a particular fit
-- least square fit
+- **physical reality VS theoretical model VS computationl models**
+```python
+xVals = pylab.array(xVals)
+yVals = pylab.array(yVals)
+```
+- type conversion from list to array. this is a type implemented by a class supplied by PyLab, which is built on top of NumPy
+- array similar to list, but has point-wise operations, array useful for math
+- **C/Pascal array is NOT THE SAME as array in python and Matlab**
+- **need objective function to tell us how good is a particular fit, measure of the goodness of the fit**
+- least square fit is the most commonly used **objective function for measuring how good any curve fits a set of points**
 - polyfit in Pylab (observed X, observed Y, degree of polynomial)
-- linear regression does not mean it is for LINEAR LINES ONLY, it can be used to find polynomials other than lines!
-- build a model to better understand the reality
+- **Linear regression does not mean it is for LINEAR LINES ONLY, it can be used to find polynomials other than lines!**
+- *why are we building a model? so we can better understand the physical reality*
+- *one of the things we often do with models is use them to predict values that we have not been able to run in our experiments*. Simulation model to predict what would happen in an experiemtn you cant run.
 - model can have very bad predictive value
-- if you are willing to get a high enough degree polynomial, you can get a pretty good fit to almost any data, BUT IT IS NOT USEFUL!
+- if you are willing to get a high enough degree polynomial, you can get a pretty good fit to almost any data, BUT IT DOES NOT PROVE ANYTHING, IT IS NOT USEFUL!
 - look at the raw data
-- it is not just a question of how good a fit is
+- **How do we know which line (linear vs cubic) is a better representation of physical reality, a better model?** Cos I can just delete all the points except two, and get a line that was a perfect fit with mean squared error of 0! **So we have a question here that CANNOT be answered by statistics**
+- it is not just a question of how good my fit is, **i have to go back to the theory**. What the Hooke theory tells me is that it should be linear, and i have a theoretical justification of discarding the last six points, it is plausible that i exceeded the limit. I dont have a theoretical justification of deleting six arbitrary points somewhere in the middle that I didnt happen to like because they didnt fit the data.
 - interplay the physical reality and computational model
-- coefficient of determination R^2
+- **How do we measure which FIT is better? Polyfit is minimizing the mean square error, so one way to compare two fits would be to say what is the mean square error of the line vs parabola**
+- in fact, computing the **mean square error is a good way to compare the fit of two different curves**. BUT!!! it is **not useful for goodness of the fit in absolute terms, just comparison**
+- instead, we use **coefficient of determination R^2 = 1 – (estimated error)/(variance of the actual data)**
 
-### Lecture 18 (computational model & Optimzation problem) Notes:
-- R^2 =1 explains all the variability of the data, x and y change relationship
+### Lecture 18 (Coefficient of Determination, computational model & Optimzation problem) Notes:
+- R^2 = 1 - (EE/MV) = 0, ie Estimate-measured = 0, explains all the variability of the data
 - R^2 = 0, the model is worthless
 - model, theory, and computation and relavance of data
-- accurary vs precision
+- accurary vs precision (138.62 is precise, but you can compute it as precisely as you want, but that does not mean it is actually accurate)
 - start with experiment -> used computation to find and evaluate a model -> use theory and analysis and computation to derive a consequence of the model
-- optimization problem: 1. objective function 2. a set of constriants to be satisfied
+- **optimization problem: 1. objective function you are minimizing or maximizing 2. a set of constriants to be satisfied that must be obeyed**
 - classic optimization problem and map their solutions
 - **problem reduction**
 - knapsack and greedy algorithm
