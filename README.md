@@ -498,42 +498,54 @@ yVals = pylab.array(yVals)
 
 ## April 6th 2019 Meetup @ Johor Bahru R&F Part2
 
-### Lecture 19 ("solve" optimization problem and machine learning) Notes:
+### Lecture 19 (power set knapsack and machine learning) Notes:
 - power set, smallest subset is empty set, largest subset is all the items
+- use decimalToBinary function, map the powersets to all the binary digits, **now we have the set of all possible items one might take, irrespective of whether they obey the constraint of not weighting too much**
 - will find at least one optimal answer
 - greedy algorithm only choose locally optimal
 - global optimum
 - inherently exponential
-- machine learning recognize complex patterns
-- inductive inference
-- two approaches to ML: supervised learning and unsupervised learning
-- supervised learning: label with each example in a training set
-- if the label is discrete, it is a classification
-- if the label is real value, it is regression
-- are labels accurate? maybe some of the real-world labels are wrong
-- is past representative of future?
-- do you have enough training data to generalize?
-- feature extraction
-- **how tight should the fit be?**
-- minimize training error
-- overfitting training data will not generalize well for future data
-- unsupervised learning has no labels
-- in unsupervised learning, you are learning **regularities of data**, is to discover the structure
-- clustering
+- **Machine Learning**, superficially you can say ML is build programs that learn. However, every program we write learns something. Newton's methond is "learning" the roots of the polynomial, fitting curves to data, we were learning a model of the data, that is what regression is.
+- **A major focus of machine learning research is to *automatically learn to recognize complex patterns* and *make intelligent decisions based on data***
+- **inductive inference**: the program observes examples that represent an incomplete information about some **statistical phenomena** and then tries to **generate a model**, just like curve fitting, that **summarizes some statistical properties** of that data and can be used to predict the future, for example, give you information about unseen data
+- two approaches to ML: **supervised learning and unsupervised learning**
+- supervised learning: associate a label with each example in a training set
+- if the label is discrete, it is **classification problem** (discrete value, boolean, etc)
+- if the label is real value, it is **regression problem** (curve fitting)
+- *Based on the examples from the training set, the goal is to build a program that can predict the answer for other cases before they were explicitly observed*. So we are trying to **generalize from statistical properties of the training set to be able to make predictions about things we havent seen**
+- **Key Question for Supervised Learning 1: Are labels accurate?** maybe some of the real-world labels are wrong
+- **Key Question for Supervised Learning 2: Is past representative of future?** you can hit some singularity and the past is not a good predictor of the future
+- **Key Question for Supervised Learning 3: Do you have enough training data to generalize?**
+- **Key Question for Supervised Learning 4: Feature extraction**
+- **Key Question for Supervised Learning 5: How tight should the fit be?** if your objective function is to minimize training error, you might have overfitting training data will not generalize well for future data. the goal is to *predict future points*. A big problem in ML is if you overfit to your training data, it might not generalize well and might give you bogus answers going forward
+- **Unsupervised learning has training data, but no labels**
+- in unsupervised learning, you are learning **regularities of data**, is to **discover the structure**
+- **The dominant form of unsupervised learning is clustering**
+- **Key Question for Unsupervised Learning 1: What does clustering mean? It is the process of organizing the objects or the points into groups whose members are similar in some way**
+- **Key Question for Unsupervised Learning 2: What do we mean by similar?**
 - clustering algorithm Walmart beer and diapers
 - clustering algorithm Amazon books
 - clustering algorithm in insurance companies, biology, netflix
-- clustering is optimization problem
-- good clustering should have low intra-cluster dissimilarity, high inter-cluster dissimilarity
+- clustering is **optimization problem**
+- good clustering should have **low intra-cluster dissimilarity, high inter-cluster dissimilarity**
 - model dissimilarity using **variance**
-- find a set of clusters C such that the "badness" of C is minimized?? single item as each cluster
-- **constraint**: at most K clusters, distance between clusters
-- k-means (exactly k clusters) | hierarchical
-- hierarchical clustering and agglomerative clustering
-- linkage criteria: single-linkage or connectiveness (best case), complete-linkage (furthest)
+- **Objective function of the optimization problem:** find a set of clusters C such that the "badness" of C is minimized?? single item as each cluster
+- **Constraints of the optimization problem**: at most K clusters OR max distance between clusters
+- **solving clustering problem is computationally prohibitive, so in practice people resort to greedy algorithm**
+- **Two most common greedy algorithms for clustering:** 1. k-means (exactly k clusters) 2. hierarchical
+- Hierarchical clustering or **agglomerative clustering: Clustering that merges clusters iteratively.**
+```python
+# a set of N items to be clusters
+# NxN Distance Matrix
+# 1) Assign each item to own cluster
+# 2) Find the MOST similar pair of clusters and merge them
+```
+- **Linkage criteria:** 1. **single-linkage or connectiveness or minimum method** (best case), 2. **complete-linkage or diameter or maximum method** (furthest)
 - n^2 complexity, and only finding local opimum
-- **feature space/selection** is very importantly
+- **A big issue in deciding to get these clusters was my *choice of features***
+- **The Most Important Issue in ML is if we are going to say which points are similar to each other, we need to understand out *feature space***
 - multi-dimensional data need feature vector that incorporates multiple features
+- In real-world problems, we go from large number of features associated with objects or things in the real world, to feature vectors that allow us to automatically deduce which things are quote "most similar"
 
 ### Lecture 20 (more clustering) Notes:
 - feature number -> feature vector
