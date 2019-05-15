@@ -142,10 +142,10 @@ def greedyAdvisor(subjects, maxWork, comparator):
     return advised_subjects
 
 # test Problem 2
-subjects = loadSubjects("shortened_subjects.txt")
-print greedyAdvisor(subjects, 7, getWork)
-print greedyAdvisor(subjects, 7, getValue)
-print greedyAdvisor(subjects, 7, getVWratio)
+# subjects = loadSubjects("shortened_subjects.txt")
+# print greedyAdvisor(subjects, 7, getWork)
+# print greedyAdvisor(subjects, 7, getValue)
+# print greedyAdvisor(subjects, 7, getVWratio)
 
 #
 # Problem 3: Subject Selection By Brute Force
@@ -232,15 +232,118 @@ def bruteForceAdvisor(subjects, maxWork):
             print("***RESULT For {} R{}, is: {} #####".format(subjects, remaining_work, result))
             return result
 
+# enumerate all the powerset and choose the best
+def dToB(num, num_digits):
+    """
+    return num int in decimal to binary digits
+    str with length num_digits, prefilled with '0'
+    """
+    assert 2**num_digits > num
+    bin_Digit = ''
+    while num > 0:
+        bin_Digit = str(num % 2) + bin_Digit
+        num = num // 2
+    while len(bin_Digit) < num_digits:
+        bin_Digit = "0" + bin_Digit
+    return bin_Digit
+
+# test decimal to binary function
+print dToB(5, 3)
+print dToB(9, 4)
+# print dToB(8, 5)
+# print dToB(15, 4)
+
+def Pset(items):
+    """
+    generate the whole power set of items
+    items: list
+    return list of lists based on the binary digits
+    """
+    # first generate the binary_digit mapping for powerset
+    vector_I = []
+    Pset = []
+    num_digits = len(items)
+    for i in range(2**num_digits):
+        vector_I.append(dToB(i, num_digits))
+    for num in vector_I:
+        print "now trying num in vector_I: ", num
+        subset = []
+        digits = len(num)
+        for j in range(digits):
+            if num[j] == "1":
+                subset += [items[j]]
+                print "subset is now: ", subset
+        Pset.append(subset)
+    return Pset
+
+# test Pset()
+print Pset(["a", "b"])
+
+
+def Pset_recursive(items):
+    """
+    recursively generate the powerset
+    items: list
+    return list of lists of all subsets
+    """
+    print "new stack with ->", items
+    # base case
+    if len(items) == 0:
+        print "base case, return [[]]"
+        return [[]]
+    # recursive case
+    else:
+        nextItem = items[0]
+        withToTake = []
+        withoutToTake = Pset_recursive(items[1:])
+        for item in withoutToTake:
+            withToTake.append(item + [nextItem])
+        return withToTake + withoutToTake
+
+# test Pset_recursive()
+# print Pset_recursive(["a", "b"])
+
+def chooseBestPset(items, maxWeight):
+    """
+    enumerate all the subsets
+    items: a dict
+    pick the best value subset that meets the constrainst
+    """
+    bestValue = 0.0
+    bestSubset = []
+    subject_list = []
+    for subject in items:
+        subject_list.append(
+            (
+                subject, items[subject]
+            )
+        )
+    subsets = Pset_recursive(subject_list)
+    for subset in subsets:
+        print "now checking subset: ", subset
+        totalValue = 0.0
+        totalWeight = 0.0
+        for item in subset:
+            totalValue += item[1][0]
+            totalWeight += item[1][1]
+        print subset, " has totalValue and totalWeight of", totalValue, totalWeight
+        if totalValue > bestValue and totalWeight <= maxWeight:
+            bestSubset = subset
+            bestValue = totalValue
+    return bestSubset
+
 # test Problem 3
-#subjects = loadSubjects("shortened_subjects.txt")
-subjects = {
+subjects = loadSubjects("shortened_subjects.txt")
+"""subjects = {
     '6.00': (16, 8),
     '1.00': (7, 7),
     '6.01': (5, 3),
     '15.01': (9, 6)
-}
+}"""
 #print bruteForceAdvisor(subjects, 3)
 #print bruteForceAdvisor(subjects, 4)
 #print bruteForceAdvisor(subjects, 5)
-print bruteForceAdvisor(subjects, 7)
+#print bruteForceAdvisor(subjects, 7)
+# (25, {'6.00': (10, 1), '6.12': (6, 3), '6.17': (9, 3)})
+#print chooseBestPset(subjects, 7)
+# [('6.17', (9, 3)), ('6.12', (6, 3)), ('6.00', (10, 1))]
