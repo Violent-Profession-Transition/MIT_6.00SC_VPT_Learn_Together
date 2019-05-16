@@ -125,3 +125,75 @@ the complexity is roughly O(fib**n), *growth is proportional to the growth in th
 - Shortest Path DFS must always explore every path from the source to the destination to ensure that it has found the shortest path. Once BFS has found a path, it knows that it is the shortest, and does not have to explore any other paths.
 - Weighted un-directed graph, you dont weight two directions of an edge differently
 - Dijkstra's algorithm is a general method to find the shortest distances from a node to all other nodes in a graph
+
+
+## Lecture 12
+
+### Machine Learning
+- Most useful programs learn something
+- Linear regression to model data, Newton method to learn the roots of polynomial
+- **"ML is field of study that gives computers the ability to learn without being explicitly programmed" --Arthur Samuel**
+- **Modern statistics meets optimization**
+- Traditional programming: Data + Program = Output
+- ML: Data + Output = Program, then new Data + Program = Predicted Output
+- **Basic paradigm in ML**: observe a set of examples (training data), try to generalize from these examples, they provide some information about a **statistical phenomenom**, then we infer something about the **process that generated those examples**
+- Old warhorses like regression and k-means clustering
+- New hot technique like deep-learning
+- **But ALL ML methods require: 1. Representation of the features (descriptions of our training data) 2. Distance metric for feature vectors 3. Objective function and constraints 4. Optimization method for learning the model 5. Evaluation method (to tune/choose the parameters of the learning method)**
+- **Supervised Learning** (feature vector, value) pairs, the value associated with the feature vector. find a model that predicts a value for a previously unseen feature vector
+- Regression predicts infinite number of possible outputs of a regression model
+- Classification predicts finite set of labels
+- **Unsupervised Learning** goal is to **uncover some latent structure in the set of feature vectors** (some structure that we did not previously know was there)
+- Clustering define some metric about how similar one feature vector is to another, and group objects based on this metric
+- Depending on what you choose as features, different structure emerges from the data
+- **In reality, we can never build a set of features that fully describe the examples or provide *all* the information we need to make good predictions**
+- **Feature engineering**: represent examples by feature vectors that are pertinent to the task and will facilitate generalization
+- Some features surely helpful: grade on midterm, did they do the problem set etc
+- Other might cause overfit: birth month...
+- **Maximize ratio of useful input to irrelevant input: Signal to Noise ratio**
+
+### k-nearest neighbor
+- Commonly used distance metric: Minkowski metric
+- Euclidean and Manhattan metric depends on the application
+- `pylab.table()` to produce table using pylab
+- The simplest classification algorithm is **nearest neighbor**, predict the label of a new example by find the nearest example in the training data
+- **Advantage of KNN**: learning is just memorization of all the training data, no explicit training, no theory required, easy to explain
+- **Disadvantage of KNN**: Memory intensive and almost brute force, **no model to shed light on the process that generated data**
+- Another method for classification **logistic regression**
+- Classification of animals, number of legs 0-4 vs cold-blooded 0-1 has a **bigger dynamic range**, so when we calculate the Euclidean distance, the number of legs gets **disproportionate weight** (because it happens to have bigger numbers)
+- **Scaling/Normalization**: general approaches **1. z-scaling 2. interpolation**
+```python
+def zScaleFeatures(vals):
+    """each feature has a mean of 0 and std of 1"""
+    result = pylab.array(vals)
+    mean = float(sum(result))/len(result)
+    result = result - mean
+    return result/stdDev(result)
+
+def iScaleFeatures(vals):
+    """min 0, max 1, linearly interpolate"""
+    minVal, maxVal = min(vals), max(vals)
+    fit = pylab.polyfit([minVal, maxVal], [0, 1], 1)
+    return pylab.polyval(fit, vals)
+```
+
+### Clustering
+- Uncover some latent structure in the data
+- Partition examples into groups/clusters such that examples in a group are more similar to each other than examples in other groups
+- no "right answer", answer dictated by **feature vectors**, **distance metric**, and not by a ground truth label
+- **Optimization problem** objective function on minimize variability(c) and dissimilarity(C). Variability for a *single cluster*, dissimilarity for *all the clusters in the clustering*
+- **Variability is not VARIANCE!**, **DONOT DIVIDE BY THE SIZE OF THE CLUSTER**, because we want the objective function to penalize big incoherent clusters more than it penalizes small incoherent clusters
+- **Constrain to avoid trivial put each point in its own cluster: minimum distance between clusters and minimum number of clusters**
+- **k-means clustering = exactly k non-empty clusters** (use a greedy algorithm to find an approximation to minimizing objective function)
+- randomly chose k examples as initial centroids, while True: 1) create k clusters by assigning each example to closest centroid 2) compute k new centroids by averaging examples in each cluster 3) if centroids dont change break
+- *Only in the very first 0th iteration do we expect the centroids to actually represent real points*
+- **K-means does not always work wo well**, it depends on the random choice of initial centroids
+- To avoid get stuck in local optimum, the usual solution is to run k-means multiple times to **minimize dependence on initial centroids**
+```python
+best = kMeans(points)
+for t in range(numTrials):
+    C = kMeans(points)
+    if dissimilarity(C) < dissimilarity(best):
+        best = C
+return best
+```
