@@ -548,23 +548,39 @@ yVals = pylab.array(yVals)
 - In real-world problems, we go from large number of features associated with objects or things in the real world, to feature vectors that allow us to automatically deduce which things are quote "most similar"
 
 ### Lecture 20 (more clustering) Notes:
-- feature number -> feature vector
-- how to scale the elements of the vector
-- dynamic range, how to cluster and scale your features
-- feature selection and scaling is critical, it is the **thinking**
-- what features to use and how to scale? DOMAIN KNOWLEDGE
-- Minkowski Metric and Manhattan distance
+- Generalizing **from a feature being a single number to the notion of a feature vector**
+- Features used to describe an object are now represented by a vector, typically of numbers
+- If the vectors are all in the same physical units, we could easily imagine how we can compare two vectors, BUT how can you compare distance value to temperature value?!
+- **How to scale the elements of the vector?** Temp vs distance
+- **Feature selection and scaling is critical**, it is the **thinking**, and then the rest gets to be fairly mechanical
+- what features to use and how to scale? **DOMAIN KNOWLEDGE**. So we have to think about the objects that we are trying to learn about and what the objectives of the learning are.
+- **Distance**: **Minkowski Metric** (Euclidean distance vs Manhattan distance)
 - Manhattan is grid-like, metric (for genes eg)
+- **Nominal categories things that have names rather than numbers**
 - nominal categories, that have names, we convert them to a number
-- domain knowledge and judgement people have to make
-- scaling or normalization, every feature between 0-1
-- teeth related to what they eat
-- point, cluster, centroid, cluster set, mammal
-- certain teeth have higher dynamic range
-- scaling really matters
-- all county data, scaling might be a problem
-- k-means is very efficient
-- centroid is the "average point"
+- domain knowledge and judgement people have to make **sorts of things that are not mathematical questions bu judgements that people have to make**
+- **Scaling == Normalization**, every feature between 0-1
+- Clusteirng mammals have **unbounded number of features**, the choice of features and weighting will have an enormous impact on what clusters you get!
+- *How should you choose which features you want? You have to begin by thinking about the reason you are doing the clustering in the first place!* **What is it that you are trying to learn about the mammals?** For example, choose the objective of eating habits, cluster mammals based on what they eat. Hypothesis: you can infer mammals' eating habits from their teeth.
+- Typically when we are using ML, we are trying to learn about something that we have limisted or no data.
+- **Scaling really matters**
+- **What is a better answer? It is not a meaningful question. It depends on what I am trying to infer, what we hope to learn from the clustering.** By using different kinds of scaling or different kinds of features, we can learn different things about the counties.
+- **k-means** is very efficient, much faster than hierarchical clustering
+```python
+# k-means mechanism
+# step 1: choose k, k is the total number of clusters you want to have when you are done
+# step 2: choose k points as initial centroids, randomly chosen
+# step 3: assign each point to the nearest centroid
+# step 4: for each of the k clusters, choose a new centroid
+# step 5: assign each point to the nearest NEW centroid
+# step 6: repeat 4&5 until change is "small"
+```
+- So each time I do step5, i can keep track of how many points I have moved from one cluster to another
+- Or each time I do step4, how much have I moved the centroids
+- Each of those gives me a measure of how much change the new iteration has produced
+- For the **complexity**, each iteration is O(kN), k=number of cluster, N=number of points, and do some number of iterations
+- **typically for k-means, we dont need a lot of iterations to get an answer, typically not proportional to N**
+- centroid is the "average point", it needs not be any of the points in the cluster
 
 ## April 12th 2019 Meetup @ Johor Bahru Pinnicle Part 1
 
