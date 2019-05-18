@@ -586,7 +586,12 @@ yVals = pylab.array(yVals)
 
 ### Lecture 21 (K-means, graph) Notes:
 - **unlike hierarchical clustering, where we could run it and get what's called a dendrogram and stop at any level and see what we liked, k-means involves knowing in advance how many clusters we want**
-- supervised and unsupervised
+- When I am done clustering using k-means, I am going to get **some statistics about the clusters**. **Keep track of the number of iterations and the maximum diameter of a cluster**, *the cluster in which things are least tightly grouped, and this will give me an indication of how good a clustering I have*
+- Because the initial cluster is chosen at random, you can get different results each time you run it. So you can run it many times and choose the "best clustering". What metric are you using for best clustering? It is a **min-max metric: choosing the minumum of the maximum diameters**. Finding the worst cluster and trying to make it as good as it can.
+- We always scale and normalize so we dont get fooled by wide dynamic range
+- **The name of the game here is we are trying to see whether we can infer something interesting by clustering (unsupervised learning). So one of the questions we should ask is how different is what we are getting here from if we chose something at random**
+- Now remember we did not cluster things based on income, I happen to plot income here just because I was curious as to how this clustering related to income. Suppose we had just chosen at random and split the counties at *random* into 100 different clusters, what would the histogram to look like?
+- supervised and unsupervised (**interestingly, unsupervised learning is probably used more often in the sciences than supervised**)
 - supervised learning: training set with labels, infer relationship between features and labels
 - unsupervised learning: all unlabelled data, relationship among points, infer relationship among points (features)
 - Be wary of overfitting, if trainning set data is small
