@@ -1,0 +1,44 @@
+#Number of kinds of teeth
+#C1='Right Top Incisors'
+#C2='Right Bottom Incisors'
+#C3='Right Top Canines'
+#C4='Right Bottom Canines'
+#C5='Right Top Premolars'
+#C6='Right Bottom Premolars'
+#C7='Right Top Molars'
+#C8='Right Bottom Molars'
+   Brown Bat           23113333
+   Mole                32103333
+   Silver Hair Bat     23112333
+   Pigmy Bat           23112233
+   House Bat           23111233
+   Red Bat             13112233
+   Pika                21002233
+   Rabbit              21003233
+   Beaver              11002133
+   Groundhog           11002133
+   Gray Squirrel       11001133
+   House Mouse         11000033
+   Porcupine           11001133
+   Wolf                33114423
+   Bear                33114423
+   Raccoon             33114432
+   Marten              33114412
+   Weasel              33113312
+   Rat                 22000066
+   Wolverine           33114412
+   Badger              33113312
+   River Otter         33114312
+   Sea Otter           32113312
+   Jaguar              33113211
+   Cougar              33113211
+   Fur Seal            32114411
+   Sea Lion            32114411
+   Grey Seal           32113322
+   Elephant Seal       21114411
+   Reindeer            04103333
+   Elk                 04103333
+   Deer                04003333
+   Moose               04003333
+   Dog                 33114423
+   Human               22112233

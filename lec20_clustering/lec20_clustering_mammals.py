@@ -90,6 +90,74 @@ def test0(numClusters = 2, scaling = 'identity', printSteps = False,
         print '  C' + str(index) + ':', c
         index += 1
 
+def kmeans(points, k, cutoff, pointType, maxIters = 100,
+           toPrint = False):
+    #Get k randomly chosen initial centroids
+    initialCentroids = random.sample(points, k)
+    clusters = []
+    #Create a singleton cluster for each centroid
+    for p in initialCentroids:
+        clusters.append(Cluster([p], pointType))
+    numIters = 0
+    biggestChange = cutoff
+    while biggestChange >= cutoff and numIters < maxIters:
+        #Create a list containing k empty lists
+        newClusters = []
+        for i in range(k):
+            newClusters.append([])
+        for p in points:
+            #Find the centroid closest to p
+            smallestDistance = p.distance(clusters[0].getCentroid())
+            index = 0
+            for i in range(k):
+                distance = p.distance(clusters[i].getCentroid())
+                if distance < smallestDistance:
+                    smallestDistance = distance
+                    index = i
+            #Add p to the list of points for the appropriate cluster
+            newClusters[index].append(p)
+        #Update each cluster and record how much the centroid has changed
+        biggestChange = 0.0
+        for i in range(len(clusters)):
+            change = clusters[i].update(newClusters[i])
+            biggestChange = max(biggestChange, change)
+        numIters += 1
+    #Calculate the coherence of the least coherent cluster
+    maxDist = 0.0
+    for c in clusters:
+        for p in c.members():
+            if p.distance(c.getCentroid()) > maxDist:
+                maxDist = p.distance(c.getCentroid())
+    print 'Number of iterations =', numIters, 'Max Diameter =', maxDist
+    return clusters, maxDist
+
+# use kMeans for mammal clustering
+def test1(k = 2, cutoff = 0.0001, numTrials = 1, printSteps = False,
+          printHistory = False):
+    points = buildMammalPoints('mammalTeeth.txt', '1/max')
+    if printSteps:
+        print 'Points:'
+        for p in points:
+            attrs = p.getOriginalAttrs()
+            for i in range(len(attrs)):
+                attrs[i] = round(attrs[i], 2)
+            print '  ', p, attrs
+    numClusterings = 0
+    bestDiameter = None
+    while numClusterings < numTrials:
+        clusters, maxDiameter = kmeans(points, k, cutoff, Mammal)
+        if bestDiameter == None or maxDiameter < bestDiameter:
+            bestDiameter = maxDiameter
+            bestClustering = copy.deepcopy(clusters)
+        if printHistory:
+            print 'Clusters:'
+            for i in range(len(clusters)):
+                print '  C' + str(i) + ':', clusters[i]
+        numClusterings += 1
+    print '\nBest Clustering'
+    for i in range(len(bestClustering)):
+        print '  C' + str(i) + ':', bestClustering[i]
+
 
 if __name__ == "__main__":
     # unit test for Point class
@@ -126,4 +194,7 @@ if __name__ == "__main__":
     cS_1.mergeOne(Cluster.singleLinkageDist, toPrint=True)
 
     # test hierarchical clustering
-    test0(numClusters=10)
+    #test0(numClusters=10)
+
+    # test k-means clustering
+    test1()
