@@ -592,21 +592,33 @@ yVals = pylab.array(yVals)
 - **The name of the game here is we are trying to see whether we can infer something interesting by clustering (unsupervised learning). So one of the questions we should ask is how different is what we are getting here from if we chose something at random**
 - Now remember we did not cluster things based on income, I happen to plot income here just because I was curious as to how this clustering related to income. Suppose we had just chosen at random and split the counties at *random* into 100 different clusters, what would the histogram to look like?
 - supervised and unsupervised (**interestingly, unsupervised learning is probably used more often in the sciences than supervised**)
-- supervised learning: training set with labels, infer relationship between features and labels
-- unsupervised learning: all unlabelled data, relationship among points, infer relationship among points (features)
+- supervised learning: training set with labels, **infer** relationship between **features of the points** and **the associated labels** (how the features relate to the labels)
+- unsupervised learning: all unlabelled data, **infer** relationship among points (features relate to the points)
 - Be wary of overfitting, if trainning set data is small
 - Features matter, which, normalized, weight
+- Features need to be relevant to the kind of knowledge that you hope to acquire
 - **FEUATURES MATTER**
-- Graph theoretic model
-- A graph is a set of nodes (vertices) connected by set of edges (arcs)
+- Our foray into ML is part of the largest unit of the course: **how to use computation to make sense of the kind of information one encounters in the world**
+- A big part of this is finding useful ways to **abstract from the situations you are initially confronted with to create a model about which one can reason**
+- Graph theoretic model (the most common kinds of computation model)
+- A graph is a set of **nodes (vertices)** connected by set of **edges (arcs)**
 - digraph or directed graph if edges uni-directional
+- **Graphs are typically used in situations in which there are interesting relationships among the parts**
 - first graph problem by Euler, 7-bridge problem
-- Euler's Model o fthe problem
-- edges can have weights
-- WWW weighted directed graph in Google
-- Graph subset of digraph
-- adjacency matrix NxN matrix
-- adjacency list
+- Euler's great insight was you didnt have to actually look at the level of details represented by this map to answer the question, you can simplify the model to a graph
+- Euler's Model of the problem
+- Edges can have weights
+- US highway or roadmap as **weighted directed-graph**
+- WWW weighted directed graph in Google (an edge from page A to page B if there is a link on page A to page B, weighted graph on how often someone goes from A to B)
+- Gene expression networks are graphs
+- Physicists use graphs to model phase transitions with the weight of the edge representing the amount of energy needed to go from one phase to another
+- Epidemiologists use graph to model diseases
+- Graph subset of digraph **(because Edge has a source and destination already, and is uni-directional. So bi-directional case Graph there is an edge for each direction is a special case od Digraph)**
+- **THE MOST IMPORTANT QUESTION in designing and implementation of graphs is the choise of data structures to represent digraph**
+- Two common ways people use: **1. Adjacency Matrix (NxN matrix each entry a weighted edge or in the case of graph just True or False)** but be careful when you have multiple edges connecting two nodes, so each **element of the matrix could itself be more complicated**
+- **2. Adjacency List for every node I list all the edges emanating from that node**
+- Which is better? Depends on your application. **Adjacency matrix is often the best choice when the connections are dense, but very wasteful if the connection is sparse (matrix most of the elements are empty)**
+- `self.edges[src].append(dest)` this is adjacency list, `childrenOf(): return self.edges[node]`, return the edges of that node, a list of all the places you can get to from that node
 
 ## April 13th 2019 Meetup @ Johor Bahru Pinnicle Part 2
 
