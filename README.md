@@ -623,7 +623,24 @@ yVals = pylab.array(yVals)
 ## April 13th 2019 Meetup @ Johor Bahru Pinnicle Part 2
 
 ### Lecture 22 (Graph) Notes:
-- 
+- Probably the most common graph problem is:
+- **1. Shortest Path find the shortest sequence of edges connecting two nodes**
+- **2. Shortest Weighted Path** instead of finding the shortest sequence of edges, we want to **find the smallest total weight**, so we may traverse a few extra edges, but we only measure the weight
+- **3. Cliques find set of nodes such that there exists a path connecting each node in the set** it is a group of nodes or group of people that somehow can get to each other. It is not saying you can't get outside the clique, but it is guanranteeing that from any member of the clique you can reach any other member of the clique
+- **4. Minimum Cut: given a graph and 2 sets of nodes find the minimum number of edges to cut for the two sets to be disconnected** take a set of nodes in Syria and take a set of nodes outside of Syria and ask what is the minimum number of communication links you have to cut to ensure people can't get from a node in Syria to a node outside Syria. People often design their networks with redundancy in it so the min-cut is not too small
+- Infection diseases, take the people who are already infected, view them as one set of nodes, and take the people who are not infected, and view them as another set of nodes, find the edges that I need to cut to separate them, and then vaccinate somebody on one side of the edge so that they don't contract the disease
+- **recursive depth-first search**: starts at the source node for the shortest path, it first visits one child, then visits all the children of those children, visits this child, picks one of its children, visits all of its children... then it back tracks, comes back and takes the next child
+- **Recursion ends when start==end**
+- **Recursive part starts by chooseing one child of the node you are currently at, and keeps doing that until it either reaches a node with no children, or it reaches the node End, OR it reaches a node it has already visited!**
+- Avoid the cycles by visited
+- Once it has got to a node that has no children, if that is not the node it is trying to get to, it back tracks and takes the next child of the node it was at
+- In this way, it systematically explores all possible paths, and along the way, it chooses the best one
+- **If you have multiple ways to get to the same intermediate node, each time you get there you will solve a problem you have already solved (how to get from that intermediate node to the final destination)**, so I am doing work I have already done before
+- So you try to remember what you did before and look it up: **MemOIzation** (table lookup)
+- This concept of memoization is at the heart of a very important programming technique called *dynamic programming*
+- Dynamic programming invented in the 1950s by Richard Bellman, it is **one of the most important algorithms we know today**
+- **Dynamic Programming 2 properties: Optimal substructure (so we know the answer is correct, global solution can be found by combining locally optimal solutions), 2. Overlapping sub-problems (so we get the actual speedup)**
+
 
 ### Lecture 23 (Dynamic Programming) Notes:
 - optimal substructure and overlapping subproblem

@@ -147,7 +147,7 @@ def DFS(graph, start, end, path=[], shortest=None):
                 newPath = DFS(graph, node, end, path, shortest)
                 # if there is a path from start to end
                 if newPath != None:
-                    print("FOUND A NEW SHORTER PATH")
+                    print("FOUND A NEW Valid PATH")
                     shortest = newPath
                 else:
                     print("No path found")
