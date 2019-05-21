@@ -643,7 +643,24 @@ yVals = pylab.array(yVals)
 
 
 ### Lecture 23 (Dynamic Programming) Notes:
+- If I know the shortest path from A to B, and I know the shortest path from B to C, can I necessarily combine those to get the shortest path from A to C? *No, because maybe there is a direct link from A to C. So we can't combine them that way*
 - optimal substructure and overlapping subproblem
 - merge sort has optimal substructure
 - merge sort does not have overlapping subproblem
-- shortest path has both properties, so can use 
+- shortest path has both properties, so can use dynamic programming
+- knapsack 0/1 also has both properties, build decision tree and go depth-first left-first
+- **Optimal substructure: we can solve the higher nodes with solutions to the lower nodes**
+- **Overlapping subproblems:** *if i have already taken A+C, and I have D left toConsider... i have taken A, and i have BCD left toConsider... when are we solving the same problem?* **Given a set of items and Given an available weight, which items should we take? In order to decide what to take next, we only need to know how much weight we have available and what are the toConsider**
+- *There may be many different sets of items I could take that would add up to the same total weight, and **leave me the same problem of given an available weight and toConsider** to solve*
+- **In choosing what to do next, as I go down the tree, I don't care what the value is above the tree. Because i will still try and find the best solution I can to the remaining subproblem** If the value above is 1 million or 3, it does not matter what I should do next.
+- You could imagine a situation in which no combinations added to the same weight, in which case dynamic programming will not speed things up
+- dynamical programming is **pseudo-polynomial**, it kind of runs in polynomial time, but not when every single item has a unique weight and things adding up to the same is not probable
+
+### Lecture 24 (Common statistical fallacies) Notes:
+-
+
+### Lecture 25 (Queuing Network Models) Notes:
+- 
+
+### Lecture 26 (Guttag Lab Healthcare with Computation) Notes:
+- 
