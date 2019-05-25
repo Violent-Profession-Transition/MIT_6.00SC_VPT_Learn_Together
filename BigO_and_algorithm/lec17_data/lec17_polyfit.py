@@ -26,6 +26,7 @@ def plotData(fileName):
 # plotData('springData.txt')
 # pylab.show()
 
+# NOTE: k is spring constant for the Hooke law
 def fitData(fileName):
     xVals, yVals = getData(fileName)
     xVals = pylab.array(xVals)

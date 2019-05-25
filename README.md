@@ -468,7 +468,7 @@ yVals = pylab.array(yVals)
 - **C/Pascal array is NOT THE SAME as array in python and Matlab**
 - **need objective function to tell us how good is a particular fit, measure of the goodness of the fit**
 - least square fit is the most commonly used **objective function for measuring how good any curve fits a set of points**
-- polyfit in Pylab (observed X, observed Y, degree of polynomial)
+- polyfit in Pylab (observed X, observed Y, degree of polynomial), it finds the **coefficients of the polynomial**
 - **Linear regression does not mean it is for LINEAR LINES ONLY, it can be used to find polynomials other than lines!**
 - *why are we building a model? so we can better understand the physical reality*
 - *one of the things we often do with models is use them to predict values that we have not been able to run in our experiments*. Simulation model to predict what would happen in an experiemtn you cant run.
@@ -480,13 +480,16 @@ yVals = pylab.array(yVals)
 - interplay the physical reality and computational model
 - **How do we measure which FIT is better? Polyfit is minimizing the mean square error, so one way to compare two fits would be to say what is the mean square error of the line vs parabola**
 - in fact, computing the **mean square error is a good way to compare the fit of two different curves**. BUT!!! it is **not useful for goodness of the fit in absolute terms, just comparison**
+- **Mean square error is useful for comparing two different models for the same data**, but it **has no upper-bound on how big it can be and it is not scale indepedent, it depends on how big is the mean value**
 - instead, we use **coefficient of determination R^2 = 1 – (estimated error)/(variance of the actual data)**
+- R^2: estimated error / *variability of the original values*, R^2 is intended to capture the proportion of variability in a dataset that is accounted for by the statistical model provided by the fit
+- So if the data set is highly variable, then it is harder to model it. If it is very constant, then it is easier to model it.
 
 ### Lecture 18 (Coefficient of Determination, computational model & Optimzation problem) Notes:
 - R^2 = 1 - (EE/MV) = 0, ie Estimate-measured = 0, explains all the variability of the data
 - R^2 = 0, the model is worthless
 - model, theory, and computation and relavance of data
-- accurary vs precision (138.62 is precise, but you can compute it as precisely as you want, but that does not mean it is actually accurate)
+- accuracy vs precision (138.62 is precise, but you can compute it as precisely as you want, but that does not mean it is actually accurate)
 - start with experiment -> used computation to find and evaluate a model -> use theory and analysis and computation to derive a consequence of the model
 - **optimization problem: 1. objective function you are minimizing or maximizing 2. a set of constriants to be satisfied that must be obeyed**
 - classic optimization problem and map their solutions
