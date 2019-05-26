@@ -56,7 +56,7 @@ def fib(n):
         return fib(n-1) + fib(n-2)
 ```
 the complexity is roughly O(fib**n), *growth is proportional to the growth in the value of the result*
-- **Memorization** create a table to record value
+- **MemOIZation** create a table to record value
 - Dynamic programming can work for two cases
 - **1. Optimal substructure: a globally optimal solution can be found by combining optimal solutions to local subproblems**
 - **2. Overlapping subproblems: finding an optimal solution involves solving the same problem multiple times**
@@ -126,6 +126,29 @@ the complexity is roughly O(fib**n), *growth is proportional to the growth in th
 - Weighted un-directed graph, you dont weight two directions of an edge differently
 - Dijkstra's algorithm is a general method to find the shortest distances from a node to all other nodes in a graph
 
+## Lecture 5
+
+### Stochastic Processes
+- **Casual Nondeterminism: at its most fundamental level, the behavior of the physical world cannot be predicted**
+- **Predictive Nondeterminism: the world may or may not be inherently unpredictable, but our lack of knowledge does not allow us to make accurate predictions**
+- However, whether the reason we cannot predict events is because they are truly unpredictable or is because we simply don't have enough information to predict them is of no practical importance. The Bohr-Einstein debate was about how to understand the lowest levels of the physical world. And honestly, except to physicists, it's not really of immediate interest to the vast majority of the world's population.
+- More obviously relevant situations like horse races, spins of roulette wheels and stock market investments may be causally deterministic, but you would be very wise to treat them as non-deterministic. *Treat them as stochastic processes*
+- *Deterministic, tochastic, static, dynamic, discrete, continuous models*
+
+### Probabilities
+- Pseudo-random number generators work typically by reading some unexpected value, like the number of milliseconds since Jan 1 1968, and a random.seed
+- `random.seed(x)` use the same seed every time I run the program
+- sample space is the **set** of all possible outcomes of that experiment, usually written as a *tree* or a *grid*
+- an **event** is a subset of the sample space, it is a collection of some possible outcomes
+- A standard deck of cards contains 52 cards, 13 each of four suits - diamonds, clubs, hearts, and spades. Each suit contains one of 13 cards: A (ace), 2, 3, 4, 5, 6, 7, 8, 9, 10, J (jack), Q (queen), K (king)
+
+### Random Walks
+- **Simulation models are descriptive, not prescriptvie, unlike optimization models, they *tell us what might happend, not how to make something happen!**
+- Optimization models are prescriptive as they provide a prescription for reaching some goal
+- So dont ever feel too confident about your simulation model. **Remember it is a model, it is not reality**
+- Random walks in understanding the stock market, modeling diffusion processes
+- 1827 Robert Brown
+- 1900 Louis Bachelier on movement of stock prices and option prices
 
 ## Lecture 12
 
