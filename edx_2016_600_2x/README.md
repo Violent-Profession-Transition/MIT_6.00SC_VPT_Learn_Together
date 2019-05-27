@@ -150,6 +150,23 @@ the complexity is roughly O(fib**n), *growth is proportional to the growth in th
 - 1827 Robert Brown
 - 1900 Louis Bachelier on movement of stock prices and option prices
 
+## Lecture 6
+
+### Class Location, Field, and Drunk
+- `Location` a place
+- `Field` a collection of {Drunk: Location} in dict, a mapping of drunks to locations, allows multiple drunks
+- `Drunk` not intended to be useful on its own, a base class to be inherited
+
+### Simulating a Single Walk
+- One **Walk** of `k` **steps**
+- `n` such **walks**
+- `class.__name__` is the class name assigned when creating the class. `Drunk.__name__` will be `"Drunk"`
+- Using **`random.seed`, you create a deterministic simulation rather than a stochastic simulation**. You should never use random.seed in a real-life situation, regardless of the seed value!**
+- In the ipython console, once you have initialized a program with random.seed, it is set to seed. To complete reset, you will have to **restart the kernel**
+- **`random.seed` will reset the pseudo-random sequence to the same starting point**. Each seed value will correspond to a sequence of generated values for a given random number generator, if you provide the same seed twice, you get the same sequence of numbers twice
+- We can plot the **distance of how far they have gone, or get the location of each walk's end**
+- On average, every four steps, the ColdDrunk moves down once and up once. After the four steps, the ColdDrunk is now 0.2 steps lower than before. So on average, ColdDrunk will move down about 0.2 steps for every 4 steps he takes, PolarBearDrunk will move down about 1 step for every 4 steps
+
 ## Lecture 12
 
 ### Machine Learning
