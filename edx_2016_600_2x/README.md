@@ -167,6 +167,69 @@ the complexity is roughly O(fib**n), *growth is proportional to the growth in th
 - We can plot the **distance of how far they have gone, or get the location of each walk's end**
 - On average, every four steps, the ColdDrunk moves down once and up once. After the four steps, the ColdDrunk is now 0.2 steps lower than before. So on average, ColdDrunk will move down about 0.2 steps for every 4 steps he takes, PolarBearDrunk will move down about 1 step for every 4 steps
 
+
+## Lecture 7
+
+### Inferential Statistics
+- Goal of Inferential Statistics: estimate some statistics about the population based on statistics about the sample
+- **Key fact:** if the sample is **chosen at random**, it tends to exhibit the same properties as the population from which it is drawn
+- Your belief on whether the coin is fair or not is **based on the intuition that the behavior of a sample of 100 flips is similar to the behavior of the population of all flips of your coin.**
+- **Confidence in our estimates** depends on two things: **Size of the sample (100 vs 2)** and **variance**
+- **As the variance grows, we need larger samples to have the same degree of confidence**
+- **what is the definition of "odds"?** *the odds in favor of my team winning the game are 1 to 4 -> so we have 5 games in total, 1 of the game my team will win...* `*|****`
+- **Odds are not probabilities! The odds are the ratio of something happening to something not happening (Favorable / Unfavorable)** *Odds = What you want vs What you dont want*
+- The worse my team is, the odds of losing will be closer to zero, but the better my team is, the odds of winning will be up to infinity
+- Odds != Odds Ratio. Odds ratio is the "ratio of odds"
+- Betting odds 5/1 or 6 are expressing odds, both meaning you will get $6 for ever $1 you bet if you win
+- 12/1 shows how much you will win on your bet in comparison to the amount staked, 12 = how much you will win from $1 stake, 1 = stake amount
+- **American Odds: odds expression indicating return relative to 100 unit base figure. With money odds, whenever there is a minus you lay that amount to win $100, where there is a plus you win that amount for every $100 you bet**
+- **Fractional Odds: historically from UK, 12 to 1, or 12/1 not including the stake or wager**
+- **Decimal Odds: potential return of a bet, including the stake amount** (IMPORTANT: Decimal odds always include the stake!)
+- **The MOST IMPORTANT LAW in all of statistics: Law of Large Numbers**
+- **Mis-application of law of large numbers is known as gambler's fallacy** sports announcer tell you a baseball player is due for a hit because he hasnt hit any...
+- **People often confuse the gambler's fallacy with regression to the mean, something that is actually correct**
+- **Regression to the mean: Following an extreme random event, the next random event is likely to be less extreme** If you spin a fair roulette wheel 10 times and get 100% reds, that is an extreme event (1/1024), so it is *likely that in the next 10 spins, you will get a less extreme event* ie, fewer than 100% reds. So if you look at the average of the 20 spins, it will be closer to the expected mean of 50% reds than to the 100% in the first 10 spins
+- The term regression to the mean was first used by Francis Galton 1885 for observation of children of tall parents
+
+### Variation in Data
+- Never possible to guarantee perfect accuracy through sampling unless one samples the entire population
+- **The Question we need to ask is: How much confidence should we have that our estimate is close to right?**
+- **How many samples do we need to look at before we can have justified confidence on our answer?**
+- Our confidence in the estimate depends on: **Variability in underlying distribution**
+- **Need to think about Standard Deviation in the context of the mean, not in isolation, SD = 0.2???**
+- **The standard deviation in mean to talk about how much confidence we should have that a sample mean is close to the population mean: Confidence level and intervals**
+- **Confidence interval and confidence level indicate the reliability of the estimate**
+- `+/- 1.96*std` is the actual number of standard deviations for 95% confidence intervals, or roughly 95% of the data will be within 2 stds of the mean
+- The 95% confidence interval for a normal distribution of data with a mean of 5 and a standard deviation of 2 is 5 +/- (2x1.96)
+- Two key assumptions for empirical rule: 1. on average, estimation error is zero 2. the distribution of the errors in the estimates is normally distributed around the mean
+
+### Distributions
+- We define distributions using probability distribution
+- Histogram is a depiction of the frequency of a distribution, how often a random variable takes on a value within a range
+- Discrete vs Continuous probability distributions (discrete vs continuous random variables)
+- **Continuous probability we cannot enumerate probability for each of an INFINITE set of values, we use PDF**
+- **PDF = Probability Density Functions, describes the probability of a random variable lying between two values**
+- Area under Curve between two x1 x2 is the probability of the variable having a value between x1 and x2
+- PDF for random.random() is flat 1, because the *probability of random.random() returning a value between 0 and 1 is indeed 100%*
+- Generating Normal Distributions in pylab
+```
+dist = [random.gauss(0,30) for i in range(10000)]
+pylab.hist(dist, 30)  # for 30 bins
+```
+- PDF for `1.0 / (sigma * ((2 * pylab.pi)**0.5)) X pylab.e**-(((x-mu)**2) / (2 * sigma**2))` only the Area Under Curve matters, total area is 1
+- use `scipy.integrate.quad` to do integration using quadrature method (f, a, b, (y,z...)), returns you a tupe (approx result, estimate of absolute error)
+
+## Lecture 8
+
+### Central Limit Theorem
+- One the two MOST IMPORTANT theorems in statistics: **1. Law of large numbers and 2. Central Limit Theorem (CLT)**
+- CLT: 1) the means of the samples in a set of samples will be approximately normally distributed
+- `hatch` in matplotlib histogram is the filling of the graph, in addition to the color, we will draw different hatch marks
+- `pylab.hist(weight=?)` weight can be added to scale the histogram
+- In the usual histogram, the size of each bin is determined solely by the number of elements contained in that bin. Using weight, we scale the y values to the relative rather than the absolute size of each bin.
+- It does not matter what the shape of the distribution of values happens to be, **if we are trying to estimate the mean of a population using sufficiently large samples, the CLT allows us to use normal distributions and confidence intervals**
+
+
 ## Lecture 12
 
 ### Machine Learning
