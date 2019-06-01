@@ -229,6 +229,13 @@ pylab.hist(dist, 30)  # for 30 bins
 - In the usual histogram, the size of each bin is determined solely by the number of elements contained in that bin. Using weight, we scale the y values to the relative rather than the absolute size of each bin.
 - It does not matter what the shape of the distribution of values happens to be, **if we are trying to estimate the mean of a population using sufficiently large samples, the CLT allows us to use normal distributions and confidence intervals**
 
+### Monte Carlo Simulation
+- "Monte Carlo simulation" was first coined in 1949 by Stanislaw Ulam and Nicholas Metropolis
+- Ulam invented Monte Carlo method in 1946 while thinking about Solitaire game, instead of trying to estimate by pure combinatorial calculations, for mathematical physics and more generally how to change processes described by certain differential equations into an equivalent form interpretable as a succession of random operations
+- **Monte Carlo simulation and randomized algorithms in general can be used to solve problems that have nothing inherently stochastic about them, ie. for which there is no uncertainty about the outcomes**
+- **Generally useful technique for Monte Carlo simulation: to estimate the area of some region R. Pick an enclosing resgion, E, such that the area of E is easy to calculate and R lies completely within E, pick a set of random points that lie within E, let F be the fraction of the points that fall within R, multiply the area of E by F**
+- for integration area estimation
+
 
 ## Lecture 12
 
