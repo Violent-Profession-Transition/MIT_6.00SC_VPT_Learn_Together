@@ -43,7 +43,7 @@ v2_weighted_g.addEdge(WeightedEdge(C, A, 5, 2))
 v2_weighted_g.addEdge(WeightedEdge(C, D, 7, 6))
 
 #print WeightedEdge(C, D,7,6)
-
+"""
 # print the graphs to test
 print "=====normal digraph: \n", normal_g
 print "C's children: \n", normal_g.childrenOf(C)
@@ -60,7 +60,7 @@ print ">>>>>weighted digraph with self.weights: ", v2_weighted_g
 print "nodes: \n", v2_weighted_g.nodes #set([C, D, A, B])
 print "edges: \n", v2_weighted_g.edges #{C: [A, D], D: [], A: [B, C], B: [C]}
 print "weights: \n", v2_weighted_g.weights #{('B', 'C'): (3, 1), ('C', 'A'): (5, 2), ('A', 'B'): (4, 2), ('C', 'D'): (7, 6), ('A', 'C'): (5, 2)}
-
+"""
 
 #
 # Problem 2: Building up the Campus Map
@@ -88,30 +88,32 @@ def load_map(mapFilename):
     Returns:
         a directed graph representing the map
     """
-    print "Loading map from file..."
+    # print "Loading map from file..."
     # initilize a weighted digraph
-    w_g = WeightedDigraph()
+    # w_g = WeightedDigraph()
+    w_g = v2_WeightedDigraph()
     # read the map.txt file
     dataFile = open(mapFilename, 'r')
     for line in dataFile:
         dataLine = string.split(line) # split by space
-        src = Node(dataLine[0])
-        dest = Node(dataLine[1])
-        tot_dist = dataLine[2]
-        outdoor_dist = dataLine[3]
-        #print "dataLine is now: ", dataLine
+        # print "dataLine is now: ", dataLine
         # dataLine is ['14', '50', '25', '20']
-        try:
+        # try getting the node instead of creating one
+        if type(w_g.getNode(dataLine[0])) == Node:
+            src = w_g.getNode(dataLine[0])
+        else:
+            src = Node(dataLine[0])
             w_g.addNode(src)
-            #print "added ", dataLine[0]
-        except ValueError:
-            pass
-        try:
+            # print "added ", dataLine[0]
+        if type(w_g.getNode(dataLine[1])) == Node:
+            dest = w_g.getNode(dataLine[1])
+        else:
+            dest = Node(dataLine[1])
             w_g.addNode(dest)
-            #print "added ", dataLine[1]
-        except ValueError:
-            pass
+            # print "added ", dataLine[1]
         # create a weightedEdge
+        tot_dist = float(dataLine[2])
+        outdoor_dist = float(dataLine[3])
         w_edge = WeightedEdge(src, dest, tot_dist, outdoor_dist)
         w_g.addEdge(w_edge)
         #print "added weighted Edge: ", w_edge
@@ -120,8 +122,21 @@ def load_map(mapFilename):
     return w_g
 
 
-# test for load_map()
-#load_map("mit_map.txt")
+#build a graph
+mit_graph = load_map("mit_map.txt")
+
+# print mit_graph.edges
+# print mit_graph.weights
+"""
+n1 = mit_graph.getNode("32")
+n2 = mit_graph.getNode("56")
+n3 = mit_graph.getNode("66")
+print n1
+print n2
+print n3
+print mit_graph.childrenOf(n1)
+# -> children of 32 is: [36, 57, 76, 68, 16, 12, 46, 48, 66, 56]
+"""
 
 #
 # Problem 3: Finding the Shortest Path using Brute Force Search
@@ -129,6 +144,10 @@ def load_map(mapFilename):
 # State the optimization problem as a function to minimize
 # and the constraints
 #
+
+# test for cal_dists()
+# print cal_dists(v2_weighted_g, [A, B, C, D])
+# -> (14,9)
 
 def bruteForceSearch(digraph, start, end, maxTotalDist, maxDistOutdoors):
     """
@@ -154,20 +173,41 @@ def bruteForceSearch(digraph, start, end, maxTotalDist, maxDistOutdoors):
         If there exists no path that satisfies maxTotalDist and
         maxDistOutdoors constraints, then raises a ValueError.
     """
-    #TODO
-    pass
+    shortestPath = None
+    shortest_dist = maxTotalDist
+    # print "digraph input is: ", digraph
+    # print digraph.weights
+    # for the graph.weights
+    # {('B', 'C'): (3, 1), ('C', 'A'): (5, 2), ('A', 'B'): (4, 2), ('C', 'D'): (7, 6), ('A', 'C'): (5, 2)}
+    all_paths = DFS_all(digraph, digraph.getNode(start), digraph.getNode(end))
+    print "all_paths: ", all_paths
+    for p in all_paths:
+        print "trying path: ", p
+        curr_totDist, curr_outDist = cal_dists(digraph, p)
+        print "Dists: ", curr_totDist, curr_outDist
+        if curr_totDist < shortest_dist and curr_outDist <= maxDistOutdoors:
+            print "found a new VALID shortestPath"
+            shortest_dist = curr_totDist
+            shortestPath = p
+    if shortestPath == None:
+        raise ValueError("Exists no path that satisfies maxTotalDist and maxDistOutdoors constraints")
+    # convert the shortestPath to list of str
+    return [e.getName() for e in shortestPath]
+
 
 # test Problem 3
-#build a graph
-mit_graph = load_map("mit_map.txt")
 
-#print test_graph
-#print AllValidPath(test_graph, A, C, toPrint = False, visited = [])
-#print all_valid_path
-#build_DFS_list(test_graph, A, C)
-#print solutions
-#print mit_graph
+#print v2_weighted_g
+# DFS() from lectures
+# print(DFS_all(v2_weighted_g, v2_weighted_g.getNode("A"), v2_weighted_g.getNode("D")))
+# -> [[A, B, C, D], [A, C, D]]
 
+# print DFS_all(mit_graph, mit_graph.getNode("57"), mit_graph.getNode("32"))
+# -> [[57, 32]]
+# print DFS_all(mit_graph, mit_graph.getNode("1"), mit_graph.getNode("7"))
+
+# print bruteForceSearch(v2_weighted_g, "A", "D", 1000, 1000)
+# print bruteForceSearch(mit_graph, '32', '56', 1000, 1000)
 
 
 #
@@ -198,10 +238,26 @@ def directedDFS(digraph, start, end, maxTotalDist, maxDistOutdoors):
         If there exists no path that satisfies maxTotalDist and
         maxDistOutdoors constraints, then raises a ValueError.
     """
-    #TODO
-    pass
+    startNode = digraph.getNode(start)
+    endNode = digraph.getNode(end)
+    shortestPath = DFS_with_weight_lite(digraph, startNode, endNode, maxDistOutdoors)
+    #print "AHAHH", cal_dists(digraph, shortestPath)
+    if shortestPath == None or cal_dists(digraph, shortestPath)[0] >= maxTotalDist:
+        raise ValueError("Exists no path that satisfies maxTotalDist and maxDistOutdoors constraints")
+    # convert the shortestPath to list of str
+    return [e.getName() for e in shortestPath]
 
-"""
+# shortestPath test
+# print DFS_with_weight_lite(v2_weighted_g, v2_weighted_g.getNode("A"), v2_weighted_g.getNode("D"), 100)
+# print DFS_with_weight(mit_graph, mit_graph.getNode("57"), mit_graph.getNode("32"), 100)
+# -> [57, 32]
+# print DFS_with_weight(mit_graph, mit_graph.getNode("1"), mit_graph.getNode("7"), 100)
+# -> [1, 5, 7]
+
+# print DFS_with_weight(mit_graph, mit_graph.getNode("1"), mit_graph.getNode("32"), 100000)
+# -> Expected:  ['1', '4', '12', '32'] (236.0, 145.0)
+
+#assert False
 #Uncomment below when ready to test
 if __name__ == '__main__':
   # Test cases
@@ -214,77 +270,77 @@ if __name__ == '__main__':
   print "Test case 1:"
   print "Find the shortest-path from Building 32 to 56"
   expectedPath1 = ['32', '56']
-  brutePath1 = bruteForceSearch(digraph, '32', '56', LARGE_DIST, LARGE_DIST)
+  #brutePath1 = bruteForceSearch(digraph, '32', '56', LARGE_DIST, LARGE_DIST)
   dfsPath1 = directedDFS(digraph, '32', '56', LARGE_DIST, LARGE_DIST)
-  print "Expected: ", expectedPath1
-  print "Brute-force: ", brutePath1
-  print "DFS: ", dfsPath1
+  print "Expected: ", expectedPath1, cal_dists(digraph, expectedPath1)
+  #print "Brute-force: ", brutePath1
+  print "DFS: ", dfsPath1, cal_dists(digraph, dfsPath1)
 
   # Test case 2
   print "---------------"
   print "Test case 2:"
   print "Find the shortest-path from Building 32 to 56 without going outdoors"
   expectedPath2 = ['32', '36', '26', '16', '56']
-  brutePath2 = bruteForceSearch(digraph, '32', '56', LARGE_DIST, 0)
+  #brutePath2 = bruteForceSearch(digraph, '32', '56', LARGE_DIST, 0)
   dfsPath2 = directedDFS(digraph, '32', '56', LARGE_DIST, 0)
-  print "Expected: ", expectedPath2
-  print "Brute-force: ", brutePath2
-  print "DFS: ", dfsPath2
+  print "Expected: ", expectedPath2, cal_dists(digraph, expectedPath2)
+  #print "Brute-force: ", brutePath2
+  print "DFS: ", dfsPath2, cal_dists(digraph, dfsPath2)
 
   # Test case 3
   print "---------------"
   print "Test case 3:"
   print "Find the shortest-path from Building 2 to 9"
   expectedPath3 = ['2', '3', '7', '9']
-  brutePath3 = bruteForceSearch(digraph, '2', '9', LARGE_DIST, LARGE_DIST)
+  #brutePath3 = bruteForceSearch(digraph, '2', '9', LARGE_DIST, LARGE_DIST)
   dfsPath3 = directedDFS(digraph, '2', '9', LARGE_DIST, LARGE_DIST)
-  print "Expected: ", expectedPath3
-  print "Brute-force: ", brutePath3
-  print "DFS: ", dfsPath3
+  print "Expected: ", expectedPath3, cal_dists(digraph, expectedPath3)
+  #print "Brute-force: ", brutePath3
+  print "DFS: ", dfsPath3, cal_dists(digraph, dfsPath3)
 
   # Test case 4
   print "---------------"
   print "Test case 4:"
   print "Find the shortest-path from Building 2 to 9 without going outdoors"
   expectedPath4 = ['2', '4', '10', '13', '9']
-  brutePath4 = bruteForceSearch(digraph, '2', '9', LARGE_DIST, 0)
+  #brutePath4 = bruteForceSearch(digraph, '2', '9', LARGE_DIST, 0)
   dfsPath4 = directedDFS(digraph, '2', '9', LARGE_DIST, 0)
-  print "Expected: ", expectedPath4
-  print "Brute-force: ", brutePath4
-  print "DFS: ", dfsPath4
+  print "Expected: ", expectedPath4, cal_dists(digraph, expectedPath4)
+  #print "Brute-force: ", brutePath4
+  print "DFS: ", dfsPath4, cal_dists(digraph, dfsPath4)
 
   # Test case 5
   print "---------------"
   print "Test case 5:"
   print "Find the shortest-path from Building 1 to 32"
   expectedPath5 = ['1', '4', '12', '32']
-  brutePath5 = bruteForceSearch(digraph, '1', '32', LARGE_DIST, LARGE_DIST)
+  #brutePath5 = bruteForceSearch(digraph, '1', '32', LARGE_DIST, LARGE_DIST)
   dfsPath5 = directedDFS(digraph, '1', '32', LARGE_DIST, LARGE_DIST)
-  print "Expected: ", expectedPath5
-  print "Brute-force: ", brutePath5
-  print "DFS: ", dfsPath5
+  print "Expected: ", expectedPath5, cal_dists(digraph, expectedPath5)
+  #print "Brute-force: ", brutePath5
+  print "DFS: ", dfsPath5, cal_dists(digraph, dfsPath5)
 
   # Test case 6
   print "---------------"
   print "Test case 6:"
   print "Find the shortest-path from Building 1 to 32 without going outdoors"
   expectedPath6 = ['1', '3', '10', '4', '12', '24', '34', '36', '32']
-  brutePath6 = bruteForceSearch(digraph, '1', '32', LARGE_DIST, 0)
+  #brutePath6 = bruteForceSearch(digraph, '1', '32', LARGE_DIST, 0)
   dfsPath6 = directedDFS(digraph, '1', '32', LARGE_DIST, 0)
-  print "Expected: ", expectedPath6
-  print "Brute-force: ", brutePath6
-  print "DFS: ", dfsPath6
+  print "Expected: ", expectedPath6, cal_dists(digraph, expectedPath6)
+  #print "Brute-force: ", brutePath6
+  print "DFS: ", dfsPath6, cal_dists(digraph, dfsPath6)
 
   # Test case 7
   print "---------------"
   print "Test case 7:"
   print "Find the shortest-path from Building 8 to 50 without going outdoors"
-  bruteRaisedErr = 'No'
+  #bruteRaisedErr = 'No'
   dfsRaisedErr = 'No'
-  try:
-      bruteForceSearch(digraph, '8', '50', LARGE_DIST, 0)
-  except ValueError:
-      bruteRaisedErr = 'Yes'
+  #try:
+  #    bruteForceSearch(digraph, '8', '50', LARGE_DIST, 0)
+  #except ValueError:
+  #    bruteRaisedErr = 'Yes'
 
   try:
       directedDFS(digraph, '8', '50', LARGE_DIST, 0)
@@ -292,7 +348,7 @@ if __name__ == '__main__':
       dfsRaisedErr = 'Yes'
 
   print "Expected: No such path! Should throw a value error."
-  print "Did brute force search raise an error?", bruteRaisedErr
+  #print "Did brute force search raise an error?", bruteRaisedErr
   print "Did DFS search raise an error?", dfsRaisedErr
 
   # Test case 8
@@ -300,12 +356,12 @@ if __name__ == '__main__':
   print "Test case 8:"
   print "Find the shortest-path from Building 10 to 32 without walking"
   print "more than 100 meters in total"
-  bruteRaisedErr = 'No'
+  #bruteRaisedErr = 'No'
   dfsRaisedErr = 'No'
-  try:
-      bruteForceSearch(digraph, '10', '32', 100, LARGE_DIST)
-  except ValueError:
-      bruteRaisedErr = 'Yes'
+  #try:
+  #    bruteForceSearch(digraph, '10', '32', 100, LARGE_DIST)
+  #except ValueError:
+  #    bruteRaisedErr = 'Yes'
 
   try:
       directedDFS(digraph, '10', '32', 100, LARGE_DIST)
@@ -313,6 +369,5 @@ if __name__ == '__main__':
       dfsRaisedErr = 'Yes'
 
   print "Expected: No such path! Should throw a value error."
-  print "Did brute force search raise an error?", bruteRaisedErr
+  #print "Did brute force search raise an error?", bruteRaisedErr
   print "Did DFS search raise an error?", dfsRaisedErr
-"""
