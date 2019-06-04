@@ -6,6 +6,8 @@ class Node:
         return self.name
     def __str__(self):
         return self.name
+    def __repr__(self):
+       return self.name
 
 class Edge:
     def __init__(self, src, dest):
@@ -155,11 +157,11 @@ def DFS(graph, start, end, path=[], shortest=None):
                 print("explored path is shorter than the current shortest, try it!")
                 newPath = DFS(graph, node, end, path, shortest)
                 # if there is a path from start to end
-                if newPath != None:
-                    print("FOUND A NEW SHORTER PATH")
+                if len(newPath) < len(shortest):
+                    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@FOUND A NEW SHORTER PATH")
                     shortest = newPath
                 else:
-                    print("No path found")
+                    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@No path found")
         else:
             print("    ", node, " for Start ", start)
             print('Already visited', node)
@@ -225,3 +227,5 @@ def get_DFS_path(source, destination):
                cityGraph.getNode(source),
                cityGraph.getNode(destination)
             )
+# test for get_DFS_path
+get_DFS_path("Boston", "Phoenix")
