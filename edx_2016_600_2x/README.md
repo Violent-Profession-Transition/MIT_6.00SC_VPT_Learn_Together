@@ -236,6 +236,35 @@ pylab.hist(dist, 30)  # for 30 bins
 - **Generally useful technique for Monte Carlo simulation: to estimate the area of some region R. Pick an enclosing resgion, E, such that the area of E is easy to calculate and R lies completely within E, pick a set of random points that lie within E, let F be the fraction of the points that fall within R, multiply the area of E by F**
 - for integration area estimation
 
+## Lecture 9
+
+### Real-world Data Sampling
+- With Monte Carlo simulations we can generate lots of random samples, and use them to compute confidence intervals
+- **BUT suppose we can't create samples by simulations. Suppose we have to draw samples from an actual population**. The polling organization did NOT conduct **repeated polls of 835 people and compute confidence intervals using the standard deviations**. Instead, they **conducted ONE poll**.
+- Predicting from inferential statistics: 1) ask every voter, 2) draw multiple random samples and compute mean and confidence interval (CLT) 3) Draw only one sample and estimate mean and confidence interval using that
+- `random.sample(population, sampleSize)` returns a list containing sampleSize randomly chosen distinct elements of population: **Sampling without replacement**
+- the temperature csv file mean temp is 16.3 degrees, but the standard deviation is 9.4, almost 60% of the mean
+- take one random sample of 100 examples
+- `pylab.axvline(x=population Mean)` draws a vertical line at x position
+- take 1000 samplings of 100 samples each, the Mean of Sample means will be normally distributed (CLT)
+- What's the 95% confidence interval? It is the mean +/- 1.96 * SD of the sample means. So 14.5-18.1 includes population mean (95% confidence interval)
+- But this is a pretty wide confidence interval relative to the mean of 16.3. **Suppose we want a tighter bound**
+- **Will drawing more samples help?**, drawing 2000 samples will not decrease the SD of sample means
+- **How about larger samples?**
+- Error bars: when confidence intervals dont overlap, we can conclude that the Means are statistically significantly different at 95% level
+```
+pylab.errorbar(sampleSizes, meanOfMeans, yerr=1.96*pylab.array(stdOfMeans),label="xxx",fmt="o")
+```
+- **Bigger Sample size is better! Going from a sample size of 100 to 400 reduced the confidence interval from 1.8Celsius to about 1Celsius**
+- But we might as well look at the whole population if sample size is too big...
+- CLT: **the variance of the sample means will be close to the variance of the population divided by the sample size**
+- **Standard Error of the Mean or Standard Error: an estimate of the standard deviation of the sample**
+- Do 50 trials for sample size of x, and **based on the 50 trials, we can actually generate TRUE standard deviation and then we can compare the mean standard error to the actual standard deviation**
+- Standard Error of the Mean tracks the standard deviation of the 50 means from trials remarkably well, but there is a catch: **WE DONT KNOW SD OF THE POPULATION!**
+- **SO THE KEY IS TO ESTIMATE THE SD OF THE SAMPLE MEANS, since the variance of the sample means, from CLT, will be close to the variance of the population divided by the sample size!!!**
+- so in practice, we use the SD of a single sample to estimate the SE, and from the estimated SE to estimate the SD of the sample means by CLT
+- **BUT WE HAVE TO CHOOSE INDEPENDENT RANDOM SAMPLES!!, or else CLT fails**
+
 
 ## Lecture 12
 
@@ -307,3 +336,10 @@ for t in range(numTrials):
         best = C
 return best
 ```
+
+## Lecture 13
+
+### Texas Sharpshooter
+- region 111 had 143 cases, more than 32% greater than expected on average
+- `max[locs] >= 143` is 60%, so the residents should not be worried
+- the probability of there being at least one of the regions has more than 143 cases
