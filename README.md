@@ -660,10 +660,64 @@ yVals = pylab.array(yVals)
 - dynamical programming is **pseudo-polynomial**, it kind of runs in polynomial time, but not when every single item has a unique weight and things adding up to the same is not probable
 
 ### Lecture 24 (Common statistical fallacies) Notes:
--
+- First work in recorded history that used statistics in the middle of the 17th century by an Englishman named John Graunt published "The Natural and Political Observations Made Upon the Bills of Mortality" for comprehensive statistics of when people died in London
+- There are enormous sets of statistics that can be extracted from a dataset, and by carefully picking and choosing among them, it is possible to convey almost any impression you want about the same data set.
+- 1973 statistician Frank Anscombe
+- Statistical measures don't tell the whole story
+- Pictures can be deceiving
+- Garbage in Garbage out
+- "Measurement errors are unbiased and independent of each other and therefore, almost identically distributed on either side of the mean", **are the errors independent? if they are not, and they represent bias, then you cannot rely upon statistical methods to say that they will balance each other out**
+- cum hoc ergo propter hoc fallacy, "with this, therefore because of this", incorrectly inferring a causation from a correlation
+- Thinking wishfully
+- **lurking variable**, or **confounding variable**
+- non-response bias, non-representative sample, WWII flak hit plane and inspection
+- convenience sampling
+- Data enhancement, CNN reported that swine flu caused 159 death. **BUT 36000 death a year are attributable to the conventional seasonal flu in the US**
+- When people are doing these projections, they fit some data and they extrapolate into the future **without understanding why maybe that is not a good thing to do. We could accurately project linearly until we exceeded the constant of elasticity at which point our linear model was totally broken**. So you **always need to have some reason other than just fitting the data to believe that what you are doing makes actual sense**.
+- **Texas sharpshooter fallacy**
+
 
 ### Lecture 25 (Queuing Network Models) Notes:
-- 
+- Queuing networks gives us a formal way to study systems in which waiting plays a fundamental role
+- Why have queues? because they typically make economic sense. **when resources are limited, particularly in servers, it makes economic sense to have jobs line up for service. Idle servers vs no queue**
+- **Resource utilization: a balance between customer service and resource utilization** The organization paying for the resources would like them to be working 100% of the time at full capacity, so there is no wasted expense. On the other hand, if you have 100% resource utilization, you are providing terrible customer service
+- The demand for service is probabilistic and unpredictable
+- **Jobs enter a queue, leave the queue one at a time and enter a server and then depart**
+- **Arrival process: do the jobs arrive singly or in groups, if they arrive in groups, it is a batch process. And how are arrivals distributed in time? (inter-arrival time distribution)**
+- Most of the time in real-world, the arrival process are distributed like the **Poisson process: things arrive at a random interval, but exponentially distributed**
+- How long does it take to provide service? (Service-time distribution): the amount of work the job to be served entails, and the speed of the server
+- Number of servers matters
+- Number of queues also matters **Single queue is better than multiple queues! Why don't we always have a single queue? Because we may not have enough space. No place to put all the single queue for all the servers**
+- **Do we allow preemption? In some queuing systems, a server can stop processing a customer to deal with another emergency cusomter, in others once a job is started, it has to run to completion**
+- **Queue characteristic (queue discipline): the fundamental policy of how from the set of customers waiting for service do we choose the customer to be served next, or how the jobs leave the queue**
+- FIFO first in first out = FCFS (first come first serve)
+- LIFO last in first out
+- A very popular queue policy in computing applications is **SRPT: Shortest Remaining Processing Time, take whichever job you can complete fastest** (this results in the shortest average wait time)
+- If the available space for the queue is small, by taking the ones you can finish fastest, you reduce the average number of elements in the queue, because you get to process more customers by taking the customers that you can process quickly. And so on average, there will be fewer customers in the queue, and so it reduces congestion.
+- SRPT also improves expected service time
+- Probability plays an important role in understanding queuing networks because there is randomness, there is randomness in inter-arrival time and there is randomness in how long each job will take to process
+- **Questions for any queuing system: 1) Average waiting time? The time it enters the queue and leaves the queue.**
+- **2) Once a job starts, how long does it complete**
+- **3) Is the waiting time bounded? What is the probability of you not having to wait longer than some upper bound.** A bound on how long a customer would wait before their call got picked up, if people have to wait more than 3 mins they hang up the phone, and so we will have enough servers that it's only rare that someone has to wait more than 3 mins
+- **4) Average queue length**
+- **5) Is the queue length bound?** a router for the internet, you need to know how much memory to allocate for the queues of jobs so that you don't run out. It is not infinite, so there is an upper bound in how long you'll let the queues grow
+- **6) Server utilizaton**. What is the expected utilization of each server, or what is the expected amount of time it will be fully occupied. Servers cost money, so keeping them busy is important
+- Analytic queuing theory, in practice they are hardly ever used because **most systems are too complex to actually model analyically**
+- Say we had a job that took 10 mins and a queue with 10 people in it, while we were waiting for that 1 10-min job to get on the bus, the other 9 people would each have to wait 10 mins. Suppose each of those 9 jobs only took 1 min, the first job would wait 0, the next job would wait 1 min, the next job wait 2 mins, even the longest job would only have to wait 9 mins before it started
+- With the MIT bus example, it is a bit strange you get on the bus, but the **bus wouldnt move at all while it was waiting for that last person to get on**. But most queuing disciplines, like in supermarket, you dont care how long the guys behind you take, as soon as you get to the front, you get processed, and you get to leave the store
+- So supermarket would have happier cusomters if it follows shortest remaining processing time and always take whoever have the fewest number of items first. Why is not SRPT always used in practice?
+- **Fairness of a queueing discipline**
+- **SRPT is so unfair that it allows starvation**, so typically people put in some sort of a priority on top of it that gives the long jobs a chance to at least run once a while
+- in mass transit systems, loading time is a very important parameter. In many urban systems, subways will spend more time at stations getting loaded than between stations, if the stations are dense
 
-### Lecture 26 (Guttag Lab Healthcare with Computation) Notes:
-- 
+
+
+### Lecture 26 (Wrap up and Guttag Lab Healthcare with Computation) Notes:
+- Begin by identifying and inventing useful abstractions, everything we do is an abstraction of reality (classes with useful data abstraction or functions that compute useful things)
+- Two As of Computational Thinking: **Abstraction** and **Automation**
+- What matters is that we have a notation that is precise enough that we can actually describe a computation, AND **we have some machine that can take a computation written in that notation, or a set of computations actually written in that notation, and execute them and give us results**
+- This is the big transformation that has made computation so important. We have had the notion of computation long before we had machines that could execute them. The Greeks, the Egyptians understood the notions of computation, we have seen before when we looked at some early algorithms
+- Algorithms have been around a long time, but nobody cared very much until we had machines and notations that would let us actually run the algorithms
+- Learning programming languages is easy, **harder is learning about the process of writing and debugging programs**, you learn that largely through experience
+- Think about overall structure and algorithms independently of expression in programming language
+- First functionality, then efficiency
